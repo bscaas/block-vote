@@ -1,0 +1,1 @@
+Smart contracts for the BSC African All Stars group project
