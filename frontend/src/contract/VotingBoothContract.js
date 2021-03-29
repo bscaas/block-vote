@@ -11,11 +11,15 @@ export class VotingBoothContract extends BaseContract{
 
 
     submitEncryptedMessages(election_id, messages){
-        return this.contract.methods.submitEncryptedMessage(election_id, messages ).send({from: window.ethereum.selectedAddress, gas: 1000000});
+        return this.contract.methods.submitEncryptedMessages(election_id, messages ).send({from: window.ethereum.selectedAddress, gas: 1000000});
     }
 
     getEncryptedMessages(election_id){
         return this.contract.methods.getEncryptedMessages(election_id).call();
+    }
+
+    clearEncryptedMessages(election_id){
+        return this.contract.methods.clearEncryptedMessages(election_id).send({from: window.ethereum.selectedAddress, gas: 1000000})
     }
 
 
