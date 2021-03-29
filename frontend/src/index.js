@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {VotingBoothContract, EncryptedMessage} from './contract/VotingBoothContract'
+
+let config = require('./config.json')
+
+let Contract = require('web3-eth-contract');
+
+Contract.setProvider(config.provider);
+
+
+window.contract = {
+  voting_booth: new VotingBoothContract(),
+}
+
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,6 +24,9 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
