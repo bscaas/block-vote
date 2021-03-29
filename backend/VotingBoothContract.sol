@@ -6,7 +6,7 @@ import "./EncryptionDomain.sol";
 contract VotingBoothContract{
     mapping(string => mapping(address => EncryptionDomain.EncryptedMessage[])) messages;
 
-    function submitEncryptedMessage(string memory election_id, EncryptionDomain.EncryptedMessage[] memory m) public {
+    function submitEncryptedMessages(string memory election_id, EncryptionDomain.EncryptedMessage[] memory m) public {
 
         for(uint8 i =0; i < m.length; i++){
             messages[election_id][m[i].public_key].push(m[i]);
@@ -18,7 +18,8 @@ contract VotingBoothContract{
         return em;
     }
 
-    function clearMessages(string memory election_id) public{
+    function clearEncryptedMessages(string memory election_id) public{
         delete messages[election_id][msg.sender];
     }
+
 }
