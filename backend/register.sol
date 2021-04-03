@@ -1,4 +1,3 @@
-// bscaas
 pragma solidity ^0.5.16;
 
 contract registerAccount {
@@ -9,13 +8,13 @@ contract registerAccount {
         numAccount = 0;
     }
     
-    struct account {
+    struct Voter {
         address addr; 
         string name;
         string email;
     }
     
-    mapping(uint => account) public accounts;
+    mapping(uint => Voter) public accounts;
     
     
     
