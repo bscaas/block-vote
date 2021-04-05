@@ -3,9 +3,9 @@ const ethUtil = require('ethereumjs-util')
 
 
 export default class WalletUtil{
-    constructor(){
+    // constructor(){
 
-    }
+    // }
 
     getPublicKey(){
       return new Promise((r)=>{

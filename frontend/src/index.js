@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Web3 from 'web3';
-import {VotingBoothContract, EncryptedMessage} from './contract/VotingBoothContract'
+import {
+  VotingBoothContract, 
+  // EncryptedMessage
+} from './contract/VotingBoothContract'
 import WalletUtil from './util/wallet-util';
 
 let config = require('./config.json')
@@ -38,7 +41,8 @@ async function loadWeb3() {
 loadWeb3().then(()=>{
 
   let x = new WalletUtil()
-
+  // log x to prevent warnings
+  console.log(x)
   
 })
 
