@@ -8,14 +8,9 @@ import {
   VotingBoothContract, 
   // EncryptedMessage
 } from './contract/VotingBoothContract'
-import WalletUtil from './util/wallet-util';
-import { ElectionCandidate, ElectionCandidateContract } from './contract/ElectionCandidateContract';
-import ElectionBallot from './ElectionBallot';
-import DecryptVote from './DecryptVote';
-let config = require('./config.json')
 
-let Contract = require('web3-eth-contract');
-
+const config = require('./config.json')
+const ipfsClient = require('ipfs-http-client');
 
 async function loadWeb3() {
   if (window.ethereum) {
@@ -32,6 +27,11 @@ loadWeb3().then(()=>{
   window.contract = {
     voting_booth: new VotingBoothContract(),
   }
+
+
+
+  window.ipfs = ipfsClient({host: config.ipfs.host, port: config.ipfs.port, protocol: config.ipfs.protocol})
+
   //let y = new ElectionCandidate("Tjad","id1","tjkey","MyElection","imagehash","imageurl")
 
   //window.contract.election_candidate.createCandidate("MyElection", y);

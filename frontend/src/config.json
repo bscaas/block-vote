@@ -1,7 +1,16 @@
 {
-    "provider":"",
+    "ipfs":{
+        "host": "ipfs.infura.io",
+        "port": 5001,
+        "protocol": "https"
+    },
     
     "voting_booth":{
+        "address": "",
+        "abi_interface": []
+    },
+
+    "election_candidate":{
         "address": "",
         "abi_interface": []
     }
