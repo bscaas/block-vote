@@ -7,7 +7,7 @@ export default class WalletUtil{
 
     // }
 
-    getPublicKey(){
+    static getPublicKey(){
       return new Promise((r)=>{
         window.ethereum.request({
           method: 'eth_getEncryptionPublicKey',
@@ -17,7 +17,7 @@ export default class WalletUtil{
         
     }
 
-    encrypt(msg, encryptionPublicKey){
+    static encrypt(msg, encryptionPublicKey){
       const encryptedMessage = ethUtil.bufferToHex(
         Buffer.from(
           JSON.stringify(
@@ -37,7 +37,7 @@ export default class WalletUtil{
     /*
       TODO: Decrypt multiple messages simultaneously
     */
-    decrypt(encrypted_msg){
+   static decrypt(encrypted_msg){
       return window.ethereum
       .request({
         method: 'eth_decrypt',
