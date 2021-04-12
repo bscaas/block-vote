@@ -8,6 +8,9 @@ import {
 import ElectionBallot from "./ElectionBallot";
 import DecryptVote from "./DecryptVote";
 import './App.css'
+import Elections from "./Elections";
+import Candidates from "./Candidates";
+import ElectionForm from "./ElectionForm";
 
 /*
  MENU / ROUTER MAPPING
@@ -15,7 +18,9 @@ import './App.css'
 const router_config = [
   {name: "Ballot", path: "/ballot", component: ElectionBallot},
   {name: "Decrypt", path: "/decrypt", component: DecryptVote},
-  {name: "Item 3", path: "/3"}
+  {name: "Elections", path: "/elections", component: Elections, is_menu:true},
+  {name: "Candidates", path: "/candidates", component: Candidates},
+  {name: "Election Form", path: "/election-form", component: ElectionForm},
 ]
 
 
@@ -27,7 +32,7 @@ export default function App() {
   return (
     <Router>
         <ul className="menu">
-            {router_config.map((item)=>{
+            {router_config.map((item, i)=>{
                 if(item.is_menu){
                   return(<li>
                       <Link to={item.path}>{item.name}</Link>
@@ -40,7 +45,7 @@ export default function App() {
         <Switch>
             {router_config.map((item)=>{
                 return (<Route exact path={item.path}>
-                    <h1>{item.name}</h1>
+                    <h1 className="text-2xl">{item.name}</h1>
                     {React.createElement(item.component)}
                 </Route>)
             })}
