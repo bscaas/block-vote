@@ -13,6 +13,7 @@ import Elections from "./Elections";
 import Candidates from "./Candidates";
 import ElectionForm from "./ElectionForm";
 import CandidateForm from "./CandidateForm";
+import VoterForm from "./VoterForm";
 
 
 /*
@@ -26,6 +27,7 @@ const router_config = [
   {name: "Candidates", path: "/candidates", component: Candidates},
   {name: "Candidate Form", path: "/candidate-form", component: CandidateForm},
   {name: "Election Form", path: "/election-form", component: ElectionForm},
+  {name: "Register Voter", path: "/voter-form", component: VoterForm},
 ]
 
 
