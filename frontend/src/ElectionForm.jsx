@@ -32,7 +32,7 @@ export class ElectionForm extends React.Component{
                 {button}                
 
                 { this.election.id
-                    ? <Candidates candidates={this.candidates}></Candidates>
+                    ? <Candidates can_register={this.election.phase != 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
                 }
             </div>

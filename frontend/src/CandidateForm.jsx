@@ -5,6 +5,7 @@ export class CandidateForm extends React.Component{
 
     constructor(props){
         super()
+        
         this.candidate = props.location.state.candidate;
     }
 
