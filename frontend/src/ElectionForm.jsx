@@ -1,11 +1,16 @@
 import React from 'react'
-import { Election } from './contract/ElectionContract'
 import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
+import Candidates from './Candidates'
 export class ElectionForm extends React.Component{
 
     constructor(props){
         super()
+        this.candidates = [
+            {name: 'Martins', id: GeneralUtil.uuidv4()}, 
+            {name: 'Demmy', id: GeneralUtil.uuidv4()}, 
+            {name: 'Emmanuel', id: GeneralUtil.uuidv4()}, 
+        ]
         this.election = props.location.state.election;
     }
 
@@ -14,10 +19,10 @@ export class ElectionForm extends React.Component{
         let button;
         
         if(this.election.id ){
-            button = <button onClick={this.updateElection}>Update</button>
+            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateElection}>Update</button>
         }
         else{
-            button = <button onClick={this.createElection}>Create</button>
+            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createElection}>Create</button>
         }
 
         return(
@@ -25,6 +30,11 @@ export class ElectionForm extends React.Component{
                 <label>Name: </label>
                 <input type="text" value={this.election.name} onChange={this.handleChangeName}/>
                 {button}                
+
+                { this.election.id
+                    ? <Candidates candidates={this.candidates}></Candidates>
+                    : ''
+                }
             </div>
             
         )
@@ -33,6 +43,7 @@ export class ElectionForm extends React.Component{
     createElection = ()=>{
         this.election.id = GeneralUtil.uuidv4()
         alert(this.election.name + ' has been created with id '+ this.election.id)
+        this.setState({}) //Call setstate to re-render UI
     }
     updateElection = ()=>{
         alert(this.election.name + ' has been updated')
