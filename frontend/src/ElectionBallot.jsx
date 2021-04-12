@@ -2,9 +2,10 @@ import React from 'react'
 import GeneralUtil from './util/general-util'
 import WalletUtil from './util/wallet-util'
 import { EncryptedMessage } from './contract/VotingBoothContract'
+import { withRouter } from 'react-router-dom'
 const uint8ArrayFromString = require('uint8arrays/from-string')
 
-export default class ElectionBallot extends React.Component {
+export class ElectionBallot extends React.Component {
     constructor(props){
         super(props)
 
@@ -19,13 +20,7 @@ export default class ElectionBallot extends React.Component {
         }
 
         this.state = {
-            candidates: [
-                {name:'Tjad', key: GeneralUtil.clashid()},
-                {name: 'Martins', key: GeneralUtil.clashid()},
-                {name: 'Demmy', key: GeneralUtil.clashid()},
-                {name: 'Nurudeen', key: GeneralUtil.clashid()},
-                {name: 'Favour', key: GeneralUtil.clashid()},
-            ],
+            candidates: props.location.state.candidates,
             decryptors:[
                 decryptor1,
                 decryptor2
@@ -125,3 +120,4 @@ export default class ElectionBallot extends React.Component {
         
     }
 }
+export default withRouter(ElectionBallot);
