@@ -1,6 +1,9 @@
 import React from 'react'
-export default class Elections extends React.Component{
+import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
+export  class Elections extends React.Component{
+    
     constructor(){
         super()
         this.elections = [
@@ -12,6 +15,7 @@ export default class Elections extends React.Component{
     render(){
         return(
             <div className="elections">
+                <i className="fas fa-plus-circle" onClick={this.createElection}></i>
                 {this.elections.map((election)=>{
                     return(
                         <div className="election">
@@ -23,4 +27,9 @@ export default class Elections extends React.Component{
             
         )
     }
+
+    createElection = ()=>{
+        this.props.history.push('/election-form')
+    }
 } 
+export default withRouter(Elections);
