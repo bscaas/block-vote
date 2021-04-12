@@ -26,7 +26,6 @@ pragma solidity >= 0.8.0;
           bytes memory _candidateIDbytes = bytes(_candidate_id);
          require(_candidateIDbytes.length > 0, "Candidate ID was not passed");
          require(bytes(candidates[_election_id][_candidate_id].Candidate_ID).length > 0, "Candidate ID Doesn't Exists");
-        
          _;
       }
    
