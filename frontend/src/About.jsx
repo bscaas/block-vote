@@ -9,9 +9,9 @@ export default class About extends React.Component{
         return(
             <div class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">
                 <h2>BlockVote | Everything You Need To Know!</h2>
-                <P class="mt-2 text-gray-600">
+                <p class="mt-2 text-gray-600">
                     This Application is for election & polling at any scale.
-                </P>
+                </p>
             </div>
         )
     }
