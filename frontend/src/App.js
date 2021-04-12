@@ -11,6 +11,7 @@ import './App.css'
 import Elections from "./Elections";
 import Candidates from "./Candidates";
 import ElectionForm from "./ElectionForm";
+import CandidateForm from "./CandidateForm";
 
 /*
  MENU / ROUTER MAPPING
@@ -20,6 +21,7 @@ const router_config = [
   {name: "Decrypt", path: "/decrypt", component: DecryptVote},
   {name: "Elections", path: "/elections", component: Elections, is_menu:true},
   {name: "Candidates", path: "/candidates", component: Candidates},
+  {name: "Candidate Form", path: "/candidate-form", component: CandidateForm},
   {name: "Election Form", path: "/election-form", component: ElectionForm},
 ]
 

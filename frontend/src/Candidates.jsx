@@ -1,13 +1,10 @@
 import React from 'react'
-export default class Candidates extends React.Component{
+import { withRouter } from 'react-router-dom'
+export class Candidates extends React.Component{
 
-    constructor(){
+    constructor(props){
         super()
-        this.candidates = [
-            {name: 'Martins'}, 
-            {name: 'Demmy'}, 
-            {name: 'Emmanuel'}, 
-        ]
+        this.candidates = props.candidates
     }
 
     render(){
@@ -15,13 +12,19 @@ export default class Candidates extends React.Component{
             <div className="candidates">
                 {this.candidates.map((candidate)=>{
                     return(
-                        <div className="candidate">
+                        <div className="candidate"  onClick={()=>{this.editCandidate(candidate)}}>
                             {candidate.name}
                         </div>
                     )
                 })}
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{this.editCandidate({name: ''})}}>Register Candidate</button>
             </div>
             
         )
     }
+
+    editCandidate(candidate){
+        this.props.history.push('/candidate-form', {candidate: candidate})
+    }
 } 
+export default withRouter(Candidates);
