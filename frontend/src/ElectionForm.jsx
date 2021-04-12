@@ -7,14 +7,15 @@ export class ElectionForm extends React.Component{
     constructor(props){
         super()
         this.candidates = [
-            {name: 'Tjad', id: GeneralUtil.uuidv4()}, 
-            {name: 'Martins', id: GeneralUtil.uuidv4()}, 
-            {name: 'Demmy', id: GeneralUtil.uuidv4()}, 
-            {name: 'Emmanuel', id: GeneralUtil.uuidv4()}, 
-            {name: 'Favour', id: GeneralUtil.uuidv4()}, 
-            {name: 'Alois', id: GeneralUtil.uuidv4()}, 
-            {name: 'Sunday', id: GeneralUtil.uuidv4()}, 
-            {name: 'Howard', id: GeneralUtil.uuidv4()}, 
+            {name: 'Tjad', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Martins', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Demmy', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Nurudeen', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Emmanuel', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Favour', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Alois', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Sunday', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
+            {name: 'Howard', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
         ]
         this.election = props.location.state.election;
     }
