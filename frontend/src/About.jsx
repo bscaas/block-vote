@@ -7,14 +7,16 @@ export default class About extends React.Component{
 
     render(){
         return(
-            <div class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">
-                <h2>BlockVote | Everything You Need To Know!</h2>
-                <p class="mt-2 text-gray-500">
-                    This Application is for election & polling at any scale.
-                <p class="mt-2 text-gray-500">Fortified with encrytion obfusication in order to obscure the voters from thier vote making it nearly imposible to see which candidate a voter voted.</p>
-                <p class="mt-2 text-gray-500">These application has an inbuilt reward system to incentivise the voters. </p>
+            <div class="mt-4 md:mt-0 md:ml-6">
+                <div>
+                    <h2 class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">BlockVote | Everything You Need To Know!</h2>
+                    <p class="mt-2 text-gray-500">
+                        This Application is for election & polling at any scale.
+                    <p class="mt-2 text-gray-500">Fortified with encrytion obfusication in order to obscure the voters from thier vote making it nearly imposible to see which candidate a voter voted.</p>
+                    <p class="mt-2 text-gray-500">These application has an inbuilt reward system to incentivise the voters. </p>
 
-                </p>
+                    </p>
+                </div>
             </div>
         )
     }
