@@ -28,9 +28,12 @@ export default function App() {
     <Router>
         <ul className="menu">
             {router_config.map((item)=>{
-                return(<li>
-                    <Link to={item.path}>{item.name}</Link>
-                </li>)
+                if(item.is_menu){
+                  return(<li>
+                      <Link to={item.path}>{item.name}</Link>
+                  </li>)
+                }
+                
             })}
         </ul>
         <hr />
