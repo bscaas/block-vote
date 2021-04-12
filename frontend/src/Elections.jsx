@@ -9,6 +9,7 @@ export  class Elections extends React.Component{
         this.elections = [
             {name: 'Nigerian Election', id: GeneralUtil.uuidv4(), phase: 'Vote'},
             {name: 'South African Election', id: GeneralUtil.uuidv4(), phase: 'Candidate'}, 
+            {name: 'Cameroon', id: GeneralUtil.uuidv4(), phase: 'Register'}, 
         ]
     }
 
