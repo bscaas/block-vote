@@ -13,7 +13,7 @@ export class Candidates extends React.Component{
             <div className="candidates">
                 {this.candidates.map((candidate)=>{
                     return(
-                        <div className="candidate"  onClick={()=>{this.editCandidate(candidate)}}>
+                        <div className="candidates"  onClick={()=>{this.editCandidate(candidate)}}>
                             {candidate.name}
                         </div>
                     )
