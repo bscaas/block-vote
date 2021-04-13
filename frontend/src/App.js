@@ -5,6 +5,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import Home from "./Home";
+>>>>>>> 18996ee (Included all passages to various navigation portals)
 import About from "./About";
 import ElectionBallot from "./ElectionBallot";
 import DecryptVote from "./DecryptVote";
@@ -17,10 +21,15 @@ import VoterForm from "./VoterForm";
 
 
 /*
- MENU / ROUTER MAPPING
+MENU / ROUTER MAPPING
 */
 const router_config = [
+<<<<<<< HEAD
   {name: "About", path: "/about", component: About},
+=======
+  {name: "Home", path: "/", component: Home, is_menu: true},
+  {name: "About", path: "/about", component: About, is_menu: true},
+>>>>>>> 18996ee (Included all passages to various navigation portals)
   {name: "Ballot", path: "/ballot", component: ElectionBallot},
   {name: "Decrypt", path: "/decrypt", component: DecryptVote},
   {name: "Elections", path: "/elections", component: Elections, is_menu:true},
