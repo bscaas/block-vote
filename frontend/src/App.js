@@ -40,22 +40,42 @@ const router_config = [
 export default function App() {
   return (
     <Router>
-        <ul className="menu">
-            {router_config.map((item, i)=>{
-                if(item.is_menu){
-                  return(<li>
-                      <Link to={item.path}>{item.name}</Link>
-                  </li>)
-                }
-                
-            })}
-        </ul>
-        <hr />
+        <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-blueGray-500 rounded border-2 border-green-200">
+          <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
+            <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href="/">
+              <img className="rounded-lg md:w-56" 
+                src={`${process.env.PUBLIC_URL}/assets/images/logo.png`} 
+                alt="logo"/>
+            </a>
+            <button className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none" type="button">
+              <span className="block relative w-6 h-px rounded-sm bg-white"></span>
+              <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
+              <span className="block relative w-6 h-px rounded-sm bg-white mt-1"></span>
+            </button>
+          </div>
+          <div className="flex lg:flex-grow items-center">
+            <ul className="flex flex-col lg:flex-row list-none ml-auto">
+              {router_config.map((item, i)=>{
+                  if(item.is_menu){
+                    return(<li className="nav-item">
+                        <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug hover:opacity-75" to={item.path}>{item.name}</Link>
+                    </li>)
+                  }
+                  
+              })}
+            </ul>
+          </div>
+        </nav>
+
+
+        
         <Switch>
             {router_config.map((item)=>{
                 return (<Route exact path={item.path}>
-                    <h1 className="text-2xl">{item.name}</h1>
-                    {React.createElement(item.component)}
+                    <div className="p-5">
+                      <h1 className="text-2xl">{item.name}</h1>
+                      {React.createElement(item.component)}
+                    </div>
                 </Route>)
             })}
 
