@@ -12,7 +12,7 @@ contract LibertyToken {
       uint256 _value
     );
 
-    event Approval(
+    event Approval (
         address indexed _owner,
         address indexed _spender,
         uint256 _value
