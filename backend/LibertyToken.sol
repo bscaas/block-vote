@@ -25,7 +25,7 @@ contract LibertyToken {
         balances[msg.sender] = totalSupply;
     }  
    
-   function totalsupply () public view returns(uint256){
+   function totalsupply() public view returns(uint256){
        return totalSupply;
    }
 
