@@ -1,7 +1,7 @@
 pragma solidity >= 0.8.0;
 
 contract LibertyToken {
-    string public name = "Liberty Token";
+    string public name = "Liberty";
     string public symbol = "LBT";
     uint256 public totalSupply = 50000000000;
     uint8 public decimals = 4;
