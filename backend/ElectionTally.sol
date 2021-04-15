@@ -51,3 +51,4 @@ contract ElectionTallyContract {
    function getTally(string memory election_id) public view returns (uint, uint, string[] memory, uint[] memory) {
         return (tallies[election_id].total_votes,tallies[election_id].candidate_votes[election_id], new string[](1), new uint[](1));
 }
+}
