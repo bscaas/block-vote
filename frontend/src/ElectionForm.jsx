@@ -6,18 +6,17 @@ export class ElectionForm extends React.Component{
 
     constructor(props){
         super()
-        this.candidates = [
-            {name: 'Tjad', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Martins', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Demmy', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Nurudeen', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Emmanuel', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Favour', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Alois', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Sunday', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-            {name: 'Howard', id: GeneralUtil.uuidv4(), key: GeneralUtil.clashid()}, 
-        ]
+        this.candidates = []
         this.election = props.location.state.election;
+
+        if(this.election.id){
+            window.contract.election_candidate.list(this.election.id).then((candidates)=>{
+                this.candidates.length = 0
+                this.candidates.push(...candidates)
+                this.setState({}) //Call setstate to re-render UI
+                
+            })
+        }
     }
 
     render(){
@@ -54,7 +53,7 @@ export class ElectionForm extends React.Component{
                 
                 
                 { this.election.id
-                    ? <Candidates can_register={this.election.phase != 'Candidate'} candidates={this.candidates}></Candidates>
+                    ? <Candidates election_id={this.election.id} can_register={this.election.phase != 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
                 }
             </div>
