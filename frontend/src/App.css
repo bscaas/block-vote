@@ -40,3 +40,7 @@
 .menu li{
   list-style-type: none;
 }
+
+body{
+  background-color: #f8f1f1;
+}

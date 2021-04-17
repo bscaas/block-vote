@@ -40,7 +40,7 @@ const router_config = [
 export default function App() {
   return (
     <Router>
-        <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-blueGray-500 rounded border-2 border-green-200">
+        <nav className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 bg-blueGray-500 rounded border-2 border-green-200">
           <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
             <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href="/">
               <img className="rounded-lg md:w-56" 
@@ -72,8 +72,7 @@ export default function App() {
         <Switch>
             {router_config.map((item)=>{
                 return (<Route exact path={item.path}>
-                    <div className="p-5">
-                      <h1 className="text-2xl">{item.name}</h1>
+                    <div className="p-5 pb-0">
                       {React.createElement(item.component)}
                     </div>
                 </Route>)
@@ -81,6 +80,7 @@ export default function App() {
 
         </Switch>
     </Router>
+
   );
 }
 
