@@ -13,7 +13,7 @@ export class VoterRegistrationContract extends BaseContract{
     }
 
     getTurnout(election_id){
-        return this.contract.methods.getTurnout(election_id).send({from: window.ethereum.selectedAddress, gas: 1000000})
+        return this.contract.methods.getTurnout(election_id).call()
     }
 
 
