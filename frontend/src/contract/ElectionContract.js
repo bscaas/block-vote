@@ -17,6 +17,14 @@ export default class ElectionContract extends BaseContract{
         return this.contract.methods.deleteElection(election_id).send({from: window.ethereum.selectedAddress, gas: 5000000})
     }
 
+    list(){
+        return this.contract.methods.listElections().call()
+    }
+
+    listIds(){
+        return this.contract.methods.listElectionIds().call()
+    }
+
     endCandidate(election_id){
         return this.contract.methods.endCandidate(election_id).send({from: window.ethereum.selectedAddress, gas: 5000000})
     }
@@ -34,9 +42,10 @@ export default class ElectionContract extends BaseContract{
 }
 
 export class Election{
-    constructor(id, name){
+    constructor(id, name, phase="Candidate", election_candidate_id=""){
         this.id = id
         this.name = name
-        this.phase = "Candidate"
+        this.phase = phase
+        this.elected_candidate_id = election_candidate_id
     }
 }

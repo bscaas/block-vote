@@ -1,22 +1,23 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import GeneralUtil from './util/general-util';
+import { Election } from './contract/ElectionContract';
 
 export  class Elections extends React.Component{
     
     constructor(){
         super()
-        this.elections = [
-            {name: 'Nigerian Election', id: '8e4cb64b-ec4f-446a-a860-26ec1d12ae5c8', phase: 'Vote'},
-            {name: 'South African Election', id: GeneralUtil.uuidv4(), phase: 'Candidate'}, 
-            {name: 'Cameroon', id: GeneralUtil.uuidv4(), phase: 'Register'}, 
-        ]
+        this.elections = []
+        window.contract.election.list().then((e)=>{
+            this.elections = e.map((a)=>new Election(...a))
+            this.setState({}) //Call setstate to re-render UI
+        })
     }
 
     render(){
         return(
             <div className="elections">
-                <i className="fas fa-plus-circle" onClick={()=>{this.editElection({name: ''})}}></i>
+                <i className="fas fa-plus-circle" onClick={()=>{this.editElection(new Election('',''))}}></i>
                 {this.elections.map((election)=>{
                     return(
                         <div className=" w-full lg:max-w-full lg:flex">
