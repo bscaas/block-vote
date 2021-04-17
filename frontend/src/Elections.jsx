@@ -7,11 +7,11 @@ export  class Elections extends React.Component{
     
     constructor(){
         super()
-        this.elections = [
-            {name: 'Nigerian Election', id: '8e4cb64b-ec4f-446a-a860-26ec1d12ae5c8', phase: 'Vote'},
-            {name: 'South African Election', id: GeneralUtil.uuidv4(), phase: 'Candidate'}, 
-            {name: 'Cameroon', id: GeneralUtil.uuidv4(), phase: 'Register'}, 
-        ]
+        this.elections = []
+        window.contract.election.list().then((e)=>{
+            this.elections = e.map((a)=>new Election(...a))
+            this.setState({}) //Call setstate to re-render UI
+        })
     }
 
     render(){
