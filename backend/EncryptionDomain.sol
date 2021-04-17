@@ -1,6 +1,6 @@
 library EncryptionDomain{
     struct EncryptedMessage{
-        address public_key;
+        address blockchain_address;
         string message;
     }
 }

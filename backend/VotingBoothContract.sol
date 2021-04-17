@@ -9,12 +9,12 @@ contract VotingBoothContract{
     function submitEncryptedMessages(string memory election_id, EncryptionDomain.EncryptedMessage[] memory m) public {
 
         for(uint8 i =0; i < m.length; i++){
-            messages[election_id][m[i].public_key].push(m[i]);
+            messages[election_id][m[i].blockchain_address].push(m[i]);
         }
     }
 
-    function getEncryptedMessages(string memory election_id) public view returns(EncryptionDomain.EncryptedMessage[] memory){
-        EncryptionDomain.EncryptedMessage[] memory em = messages[election_id][msg.sender];
+    function getEncryptedMessages(string memory election_id, address sender) public view returns(EncryptionDomain.EncryptedMessage[] memory){
+        EncryptionDomain.EncryptedMessage[] memory em = messages[election_id][sender];
         return em;
     }
 
