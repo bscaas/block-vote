@@ -5,13 +5,12 @@ pragma solidity >= 0.8.0;
    contract ElectionCandidateContract{
 
       struct CandidateInfo {
-        string Candidate_Name;
-        string Candidate_ID;
-        string Candidate_Key;
-        string Election_ID;
-        bytes Profile_Image;
-        string Profile_Image_Hash;
-        string url;
+        string id;
+        string name;
+        string election_id;
+        string key;
+        string profile_image_hash;
+        string profile_image_url;
     }
 
      mapping (string => mapping (string => CandidateInfo)) public candidates;
@@ -19,18 +18,18 @@ pragma solidity >= 0.8.0;
     modifier candidateNotExists(string memory _election_id, string memory _candidate_id ){
          bytes memory _candidateIDbytes = bytes(_candidate_id);
          require(_candidateIDbytes.length > 0, "Candidate ID was not passed");
-         require(bytes(candidates[_election_id][_candidate_id].Candidate_ID).length == 0, "Candidate ID Already Exists");
+         require(bytes(candidates[_election_id][_candidate_id].id).length == 0, "Candidate ID Already Exists");
          _;
      }
       modifier candidateExists(string memory _election_id, string memory _candidate_id ){
           bytes memory _candidateIDbytes = bytes(_candidate_id);
          require(_candidateIDbytes.length > 0, "Candidate ID was not passed");
-         require(bytes(candidates[_election_id][_candidate_id].Candidate_ID).length > 0, "Candidate ID Doesn't Exists");
+         require(bytes(candidates[_election_id][_candidate_id].id).length > 0, "Candidate ID Doesn't Exists");
          _;
       }
    
-    function createCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateNotExists(_election_id, _candidateinfo.Candidate_ID ) {
-     candidates[_election_id][ _candidateinfo.Candidate_ID] = _candidateinfo;
+    function createCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateNotExists(_election_id, _candidateinfo.id ) {
+     candidates[_election_id][ _candidateinfo.id] = _candidateinfo;
         
     }
 
@@ -38,8 +37,8 @@ pragma solidity >= 0.8.0;
        return candidates[_election_id][_candidate_id];
     }
     
-    function updateCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateExists(_election_id, _candidateinfo.Candidate_ID){
-           candidates[_election_id][_candidateinfo.Candidate_ID]= _candidateinfo;
+    function updateCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateExists(_election_id, _candidateinfo.id){
+           candidates[_election_id][_candidateinfo.id]= _candidateinfo;
          }
 
 
