@@ -9,6 +9,10 @@
         "address": "",
         "abi_interface": []
     },
+    "election":{
+        "address": "",
+        "abi_interface": []
+    },
 
     "election_candidate":{
         "address": "",
