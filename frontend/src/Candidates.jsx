@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { ElectionCandidate } from './contract/ElectionCandidateContract'
+import GeneralUtil from './util/general-util'
 export class Candidates extends React.Component{
 
     constructor(props){
@@ -24,7 +25,7 @@ export class Candidates extends React.Component{
 
                 { this.can_register
                     ? ''
-                    : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{this.editCandidate(new ElectionCandidate('','','',this.election_id,'',''))}}>Register Candidate</button>
+                    : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{this.editCandidate(new ElectionCandidate('','',this.election_id,GeneralUtil.clashid(),'',''))}}>Register Candidate</button>
                 }
                 
                 
