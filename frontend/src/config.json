@@ -17,5 +17,9 @@
     "election_candidate":{
         "address": "",
         "abi_interface": []
+    },
+    "voter_registration":{
+        "address": "",
+        "abi_interface": []
     }
 }
