@@ -1,6 +1,6 @@
 import BaseContract from './BaseContract';
 
-export class ElectionCandidateContract extends BaseContract{
+export default class ElectionCandidateContract extends BaseContract{
     contract = null
 
     constructor(){
@@ -19,7 +19,7 @@ export class ElectionCandidateContract extends BaseContract{
 
 
     readCandidate(election_id, candidate_id){
-        return this.contract.methods.readCandidate(election_id, candidate_id ).send({from: window.ethereum.selectedAddress, gas: 1000000});
+        return this.contract.methods.readCandidate(election_id, candidate_id ).call();
     }
 
 
@@ -27,15 +27,24 @@ export class ElectionCandidateContract extends BaseContract{
         return this.contract.methods.deleteCandidate(election_id, candidate_id ).send({from: window.ethereum.selectedAddress, gas: 1000000});
     }
 
+    list(election_id){
+        return this.contract.methods.listCandidates(election_id).call().then((candidates)=>{
+            return Promise.resolve(candidates.map((c)=>new ElectionCandidate(...c)))
+        });
+    }
+    listIds(election_id){
+        return this.contract.methods.listCandidateIds(election_id).call();
+    }
+
 }
 
 export class ElectionCandidate{
 
-    constructor( name, id, key, election_id, profile_image_hash, profile_image_url){
-        this.name = name;
+    constructor( id, name,  election_id, key, profile_image_hash, profile_image_url){
         this.id = id;
-        this.key = key;
+        this.name = name;
         this.election_id = election_id;
+        this.key = key;
         this.profile_image_hash = profile_image_hash;
         this.profile_image_url = profile_image_url
     }
