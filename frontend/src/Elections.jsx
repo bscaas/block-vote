@@ -71,7 +71,7 @@ export  class Elections extends React.Component{
         window.contract.election.endCandidate(election_id)
         return false
     }
-    endCandidate(election_id, e){
+    endRegistration(election_id, e){
         e.stopPropagation();
         window.contract.election.endRegistration(election_id)
         return false

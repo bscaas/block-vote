@@ -2,6 +2,7 @@ import React from 'react'
 import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
+import { Voter } from './contract/VoterRegistrationContract'
 export class ElectionForm extends React.Component{
 
     constructor(props){
@@ -32,10 +33,10 @@ export class ElectionForm extends React.Component{
 
         let voteButton = '';
 
-        if(this.election.phase == 'Register'){
+        if(this.election.phase == 'Registration'){
             voteButton = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoRegistration}>Register to Vote</button>
         }
-        else if(this.election.phase == 'Vote')
+        else if(this.election.phase == 'Voting')
         {
             voteButton = <div className="">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoBallot}>Vote</button>
@@ -88,7 +89,7 @@ export class ElectionForm extends React.Component{
     }
 
     gotoRegistration = ()=>{
-        this.props.history.push('/voter-form', {election: this.election, voter: {} })
+        this.props.history.push('/voter-form', {election: this.election, voter: new Voter(0,'','',false) })
     }
 } 
 export default withRouter(ElectionForm);
