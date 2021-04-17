@@ -38,5 +38,6 @@ export class Election{
         this.id = id
         this.name = name
         this.phase = "Candidate"
+        this.elected_candidate_id = ""
     }
 }

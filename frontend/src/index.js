@@ -8,6 +8,7 @@ import {
   VotingBoothContract, 
   // EncryptedMessage
 } from './contract/VotingBoothContract'
+import ElectionContract from './contract/ElectionContract';
 
 const config = require('./config.json')
 const ipfsClient = require('ipfs-http-client');
@@ -25,6 +26,7 @@ loadWeb3().then(()=>{
 
 
   window.contract = {
+    election: new ElectionContract(),
     voting_booth: new VotingBoothContract(),
   }
 

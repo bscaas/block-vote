@@ -42,7 +42,7 @@ export default function App() {
     <Router>
         <nav className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 bg-blueGray-500 rounded border-2 border-green-200">
           <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
-            <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href="/">
+            <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href={process.env.PUBLIC_URL}>
               <img className="rounded-lg md:w-56" 
                 src={`${process.env.PUBLIC_URL}/assets/images/logo.png`} 
                 alt="logo"/>

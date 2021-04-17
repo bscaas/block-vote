@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import GeneralUtil from './util/general-util';
+import { Election } from './contract/ElectionContract';
 
 export  class Elections extends React.Component{
     
@@ -16,7 +17,7 @@ export  class Elections extends React.Component{
     render(){
         return(
             <div className="elections">
-                <i className="fas fa-plus-circle" onClick={()=>{this.editElection({name: ''})}}></i>
+                <i className="fas fa-plus-circle" onClick={()=>{this.editElection(new Election('',''))}}></i>
                 {this.elections.map((election)=>{
                     return(
                         <div className=" w-full lg:max-w-full lg:flex">
