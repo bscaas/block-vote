@@ -13,7 +13,8 @@ pragma solidity >= 0.8.0;
         string profile_image_url;
     }
 
-     mapping (string => mapping (string => CandidateInfo)) public candidates;
+     mapping (string => mapping (string => CandidateInfo)) candidates;
+     mapping (string => string[]) candidate_ids;
 
     modifier candidateNotExists(string memory _election_id, string memory _candidate_id ){
          bytes memory _candidateIDbytes = bytes(_candidate_id);
@@ -29,8 +30,8 @@ pragma solidity >= 0.8.0;
       }
    
     function createCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateNotExists(_election_id, _candidateinfo.id ) {
-     candidates[_election_id][ _candidateinfo.id] = _candidateinfo;
-        
+        candidates[_election_id][ _candidateinfo.id] = _candidateinfo;
+        candidate_ids[_election_id].push(_candidateinfo.id);
     }
 
     function readCandidate(string memory _election_id, string memory _candidate_id)public view candidateExists(_election_id, _candidate_id) returns (CandidateInfo memory){
@@ -44,6 +45,20 @@ pragma solidity >= 0.8.0;
 
     function deleteCandidate(string memory _election_id, string memory _candidate_id)public candidateExists(_election_id, _candidate_id){
            delete candidates[_election_id][_candidate_id];
+    }
+
+
+    function listCandidateIds(string memory election_id) public view returns(string[] memory){
+      return candidate_ids[election_id];  
+    }
+
+    function listCandidates(string memory election_id) public view returns(CandidateInfo[] memory){
+      string[] memory ids = candidate_ids[election_id];
+      CandidateInfo[] memory results = new CandidateInfo[](ids.length);
+      for(uint i=0; i < ids.length; i++){
+        results[i] = candidates[election_id][i];
+      }
+      return results;
     }
 
 
