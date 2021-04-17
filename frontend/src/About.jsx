@@ -1,4 +1,6 @@
 import React from 'react'
+import './About.css'
+
 export default class About extends React.Component{
 
     constructor(){
@@ -8,6 +10,9 @@ export default class About extends React.Component{
     render(){
         return(
             <div class="mt-4 md:mt-0 md:ml-6">
+                <section id="about1" className="h-screen bg-opacity-50 flex items-center justify-center mb-0">
+
+                </section>
                 <div>
                     <h2 class="block mt-1 text-lg leading-tight font-semibold text-gray-900 hover:underline">BlockVote | Everything You Need To Know!</h2>
                     <p>
