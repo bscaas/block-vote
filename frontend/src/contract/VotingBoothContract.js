@@ -14,7 +14,7 @@ export class VotingBoothContract extends BaseContract{
     }
 
     getEncryptedMessages(election_id){
-        return this.contract.methods.getEncryptedMessages(election_id).call();
+        return this.contract.methods.getEncryptedMessages(election_id).call({from: window.ethereum.selectedAddress});
     }
 
     clearEncryptedMessages(election_id){
