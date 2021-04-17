@@ -33,8 +33,12 @@ export class CandidateForm extends React.Component{
 
     createCandidate = ()=>{
         this.candidate.id = GeneralUtil.uuidv4()
-        alert(this.candidate.name + ' has been created with id '+ this.candidate.id)
-        this.setState({}) //Call setstate to re-render UI
+
+        window.contract.election_candidate.createCandidate(this.candidate.election_id, this.candidate).then(()=>{
+            alert(this.candidate.name + ' has been created with id '+ this.candidate.id)
+            this.setState({}) //Call setstate to re-render UI
+        })
+        
     }
     updateCandidate = ()=>{
         alert(this.candidate.name + ' has been updated')
