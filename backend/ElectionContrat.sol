@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 contract ElectionContract{
 
     mapping(string=>Election) elections;
+    string[] election_ids;
 
     struct Election{
         string id;
@@ -25,6 +26,7 @@ contract ElectionContract{
     function createElection(Election memory election) public electionNotExists(election.id) {
         election.phase = "Candidate";
         elections[election.id] = election;
+        elections_ids.push(election.id);
     }
 
     function readElection(string memory election_id) public view electionExists(election_id) returns(Election memory){
@@ -41,6 +43,10 @@ contract ElectionContract{
 
     function deleteElection(string memory election_id) public electionExists(election_id) {
         delete elections[election_id];
+    }
+
+    function listElections() returns(string[] memory){
+        return election_ids;
     }
 
     function endCandidate(string memory election_id) public electionExists(election_id) {
