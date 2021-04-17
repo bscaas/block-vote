@@ -32,8 +32,8 @@ export class ElectionBallot extends React.Component {
                 decryptor1
                 
             ],
-            election_id: 'MyElection'
         }
+        this.election = props.location.state.election
     }
 
 
@@ -80,7 +80,7 @@ export class ElectionBallot extends React.Component {
                 vote_id: vote.id,
                 candidate_key_fragment: candidate_key[i],
                 candidate_key_fragment_position: i,
-                election_id: candidate.election_id
+                election_id: this.election.id
 
             }
             
@@ -93,7 +93,7 @@ export class ElectionBallot extends React.Component {
             let results = await window.ipfs.add(encryptions_1)
             let encryptions_2 = []
             let i = 0
-            for await (const r of results){
+            for await (let r of results){
 
                 
                 let decryptor = this.state.decryptors[i%n_decryptors];
@@ -142,7 +142,7 @@ export class ElectionBallot extends React.Component {
 
             console.log("Before promises")
             Promise.all(promises).then(()=>{
-                window.contract.voting_booth.submitEncryptedMessages(this.state.election_id, encrypted_msgs)
+                window.contract.voting_booth.submitEncryptedMessages(this.election.id, encrypted_msgs)
                 console.log("after promises")
             })
         })

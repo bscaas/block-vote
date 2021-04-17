@@ -38,7 +38,10 @@ export class ElectionForm extends React.Component{
         }
         else if(this.election.phase == 'Vote')
         {
-            voteButton = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoBallot}>Vote</button>
+            voteButton = <div className="">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoBallot}>Vote</button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoDecrypt}>Decrypt</button>
+                        </div>
         }   
         
 
@@ -75,6 +78,11 @@ export class ElectionForm extends React.Component{
 
     gotoBallot = ()=>{
         this.props.history.push('/ballot', {election: this.election, candidates: this.candidates })
+    }
+    gotoDecrypt = ()=>{
+        window.contract.voting_booth.getEncryptedMessages(this.election.id).then((messages)=>{
+            this.props.history.push('/decrypt', {messages: messages })
+        })
     }
 
     gotoRegistration = ()=>{

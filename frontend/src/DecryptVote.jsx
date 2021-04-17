@@ -1,11 +1,15 @@
 import React from 'react'
 import WalletUtil from './util/wallet-util'
+import { withRouter } from 'react-router-dom'
 
 
-export default class DecryptVote extends React.Component {
+export  class DecryptVote extends React.Component {
     constructor(props){
         super(props)
-        this.state = { messages: []}
+        this.messages = []
+        if(props.location.state){
+            this.messages = props.location.state.messages
+        }
         
     }
 
@@ -21,7 +25,7 @@ export default class DecryptVote extends React.Component {
             //         })}        
             // </div>
             <div>
-                {this.state.messages.length} messages to decrypt.
+                {this.messages.length} messages to decrypt.
                 <br></br>
                 <button onClick={()=>this.decrypt()}>Decrypt</button>
             </div>
@@ -32,7 +36,8 @@ export default class DecryptVote extends React.Component {
         let decrypted_messages = this.state.messages.map(async (message)=>WalletUtil.decrypt(message))
         
         alert(decrypted_messages.length+" messages decrypted");
-    }
+    }   
     
 }
 
+export default withRouter(DecryptVote);
