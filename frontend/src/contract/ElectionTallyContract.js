@@ -13,3 +13,11 @@ export default class ElectionTallyContract extends BaseContract{
         return this.contract.methods.getTally(election_id).send({from: window.ethereum.selectedAddress, gas: 5000000})
     }
 }
+
+export class VoteFragment{
+    constructor(vid, position, fragment){
+        this.vote_id = vid
+        this.candidate_key_fragment_position = position
+        this.candidate_key_fragment = fragment
+    }
+}
