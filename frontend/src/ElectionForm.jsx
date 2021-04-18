@@ -38,21 +38,22 @@ export class ElectionForm extends React.Component{
         }
         else if(this.election.phase == 'Voting')
         {
-            voteButton = <div className="">
+            voteButton = <span className="float-right">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoBallot}>Vote</button>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoDecrypt}>Decrypt</button>
-                        </div>
+                        </span>
         }   
         
 
         return(
             <div className="election">
+                <h3 className="text-2xl">Election</h3> {voteButton}
                 <label>Name: </label>
                 <input type="text" value={this.election.name} onChange={this.handleChangeName}/>
                 {button}                
-                {voteButton}
                 
                 
+                <h3 className="text-xl" >Candidates</h3>
                 { this.election.id
                     ? <Candidates election_id={this.election.id} can_register={this.election.phase != 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''

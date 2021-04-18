@@ -16,18 +16,23 @@ export class Candidates extends React.Component{
             <div className="candidates">
                 {this.candidates.map((candidate)=>{
                     return(
-                        <div className="candidates"  onClick={()=>{this.editCandidate(candidate)}}>
-                            {candidate.name}
+
+                        <div className=" w-full lg:max-w-full lg:flex"  >
+                            <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{background_image: "url('/mountain.jpg')"}} title="Mountain">
+                            </div>
+                            <div className="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal" onClick={()=>{this.editCandidate(candidate)}}>
+                                <div className="mb-8">
+                                    <p className="text-sm text-gray-600 flex items-center">
+                                    </p>
+                                    <div className="text-gray-900 font-bold text-xl mb-2">{candidate.name}</div>
+                                </div>
+                                
+                            </div>
                         </div>
                     )
                 })}
 
 
-                { this.can_register
-                    ? ''
-                    : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{this.editCandidate(new ElectionCandidate('','',this.election_id,GeneralUtil.clashid(10),'',''))}}>Register Candidate</button>
-                }
-                
                 
             </div>
             

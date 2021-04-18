@@ -10,7 +10,7 @@ export default class About extends React.Component{
     render(){
         return(
             <div class="mt-4 md:mt-0 md:ml-6">
-                <section id="about1" className="h-screen bg-opacity-50 flex items-center justify-center mb-0">
+                <section id="about1" className="h-screen bg-opacity-50 flex items-center justify-center mb-0  bg-auto bg-no-repeat bg-center" style={{background: "url('" + process.env.PUBLIC_URL + "/assets/images/multiethnic-group-hands-raised.jpg"}}>
 
                 </section>
                 <div>
