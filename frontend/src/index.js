@@ -11,6 +11,7 @@ import {
 import ElectionContract from './contract/ElectionContract';
 import  ElectionCandidateContract  from './contract/ElectionCandidateContract';
 import { VoterRegistrationContract } from './contract/VoterRegistrationContract';
+import ElectionTallyContract from './contract/ElectionTallyContract';
 
 const config = require('./config.json')
 const ipfsClient = require('ipfs-http-client');
@@ -31,6 +32,7 @@ loadWeb3().then(()=>{
     election: new ElectionContract(),
     election_candidate: new ElectionCandidateContract(),
     voting_booth: new VotingBoothContract(),
+    election_tally: new ElectionTallyContract(),
     voter: new VoterRegistrationContract(),
   }
 
