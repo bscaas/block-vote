@@ -6,6 +6,10 @@ export default class ElectionTallyContract extends BaseContract{
     }
 
     submitVoteFragments(election_id, vote_fragments){
+
+        if(vote_fragments.length == 0){
+            return Promise.resolve()
+        }
         return this.contract.methods.submitVoteFragments(election_id, vote_fragments).send({from: window.ethereum.selectedAddress, gas: 5000000})
     }
 
@@ -16,6 +20,7 @@ export default class ElectionTallyContract extends BaseContract{
 
 export class VoteFragment{
     constructor(vid, position, fragment){
+        this.election_id=""
         this.vote_id = vid
         this.candidate_key_fragment_position = position
         this.candidate_key_fragment = fragment

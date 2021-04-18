@@ -85,7 +85,7 @@ export class ElectionForm extends React.Component{
     }
     gotoDecrypt = ()=>{
         window.contract.voting_booth.getEncryptedMessages(this.election.id).then((messages)=>{
-            this.props.history.push('/decrypt', {messages: messages })
+            this.props.history.push('/decrypt', {messages: messages, election_id: this.election.id })
         })
     }
 

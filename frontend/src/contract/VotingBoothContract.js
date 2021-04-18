@@ -9,7 +9,9 @@ export class VotingBoothContract extends BaseContract{
 
 
     submitEncryptedMessages(election_id, messages){
-        console.log(messages)
+        if(messages.length == 0){
+            return Promise.resolve()
+        }
         return this.contract.methods.submitEncryptedMessages(election_id, messages ).send({from: window.ethereum.selectedAddress, gas: 5000000});
     }
 

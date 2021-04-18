@@ -8,7 +8,15 @@ export  class DecryptVote extends React.Component {
         super(props)
         this.messages = []
         if(props.location.state){
-            this.messages = props.location.state.messages
+            this.election_id = props.location.state.election_id
+            this.already_decrypted_messages = JSON.parse(localStorage.getItem('decrypt'+this.election_id)) || []
+
+            for(let m of props.location.state.messages){
+                if(!this.already_decrypted_messages.includes(window.web3.utils.keccak256(m).toString())){
+                    this.messages.push(m)
+                }
+                
+            }
         }
         
     }
@@ -33,9 +41,42 @@ export  class DecryptVote extends React.Component {
     }
 
     decrypt(){
-        let decrypted_messages = this.state.messages.map(async (message)=>WalletUtil.decrypt(message))
+        let decrypted_messages = []
+        let decrypted_votes = []
         
-        alert(decrypted_messages.length+" messages decrypted");
+        //Decrypt all encrypted messages
+        Promise.all(this.messages.map((message)=>{
+            return new Promise((resolv)=>{
+                fetch("https://ipfs.infura.io/ipfs/"+message).then((response)=>{
+                    response.text().then((text)=>{
+                        WalletUtil.decrypt(text).then((decrypted)=>{
+                            let decrypted_json = JSON.parse(decrypted)
+                            if(decrypted_json.vote_id){
+                                decrypted_votes.push(decrypted_json)
+                            }
+                            else{
+                                decrypted_messages.push(decrypted_json)
+                            }
+                            resolv()
+                        })
+                    })
+                })
+                
+            })
+        })).then(()=>{ //Submit decryptions to relevant contracts
+            Promise.all([
+                window.contract.voting_booth.submitEncryptedMessages(this.election_id, decrypted_messages),
+                window.contract.election_tally.submitVoteFragments(this.election_id, decrypted_votes)
+            ]).then(()=>{
+                console.log(decrypted_messages)
+                this.already_decrypted_messages = this.already_decrypted_messages.concat(this.messages.map((m)=>window.web3.utils.keccak256(m).toString()))
+                localStorage.setItem('decrypt'+this.election_id, JSON.stringify(this.already_decrypted_messages))
+            })
+            
+        })
+
+        
+        
     }   
     
 }
