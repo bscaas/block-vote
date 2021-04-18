@@ -1,16 +1,16 @@
 pragma solidity >= 0.8.0;
-    pragma experimental ABIEncoderV2;
-   
-   
-   contract ElectionCandidateContract{
+pragma experimental ABIEncoderV2;
 
-      struct CandidateInfo {
-        string id;
-        string name;
-        string election_id;
-        string key;
-        string profile_image_hash;
-        string profile_image_url;
+
+contract ElectionCandidateContract{
+
+    struct CandidateInfo {
+      string id;
+      string name;
+      string election_id;
+      string key;
+      string profile_image_hash;
+      string profile_image_url;
     }
 
      mapping (string => mapping (string => CandidateInfo)) candidates;

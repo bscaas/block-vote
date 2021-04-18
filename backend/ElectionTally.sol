@@ -1,9 +1,12 @@
 pragma solidity ^0.8.0;
 
 import "./VotingDomain.sol";
+import "./ElectionCandidateContract.sol";
 
 contract ElectionTallyContract {
     uint candidate_key_length = 10;
+    address candidate_contract_address;
+
     struct ElectionTally{
         uint total_votes;
         mapping(string => uint) candidate_votes;
@@ -32,7 +35,7 @@ contract ElectionTallyContract {
             if(vote.fragments.length >= candidate_key_length){
                 //reorder the candidate key fragments (sort)
                 bytes memory candidate_key = new bytes(candidate_key_length);
-                for(uint j=0; j <= vote.fragments.length; j++){
+                for(uint j=0; j < vote.fragments.length; j++){
                     candidate_key[vote.fragments[j].candidate_key_fragment_position] = bytes(vote.fragments[j].candidate_key_fragment)[0];
                 }
                 //if valid candidate key, tally vote
@@ -47,8 +50,21 @@ contract ElectionTallyContract {
 
     }
 
+    function setCandidateContractAddress(address addr) public{
+        candidate_contract_address = addr;
+    }
 
-   function getTally(string memory election_id) public view returns (uint, uint, string[] memory, uint[] memory) {
-        return (tallies[election_id].total_votes,tallies[election_id].candidate_votes[election_id], new string[](1), new uint[](1));
-}
+
+    function getTally(string memory election_id) public view returns (string[] memory, uint[] memory) {
+        ElectionCandidateContract election = ElectionCandidateContract(candidate_contract_address);
+
+        string[] memory candidate_ids = election.listCandidateIds(election_id);
+        uint[] memory counts = new uint[](candidate_ids.length);
+
+        for(uint i = 0; i < candidate_ids.length; i++){
+            counts[i] = tallies[election_id].candidate_votes[candidate_ids[i]];
+        }
+
+        return(candidate_ids, counts);
+    }
 }
