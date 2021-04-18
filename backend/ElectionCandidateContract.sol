@@ -56,7 +56,7 @@ pragma solidity >= 0.8.0;
       string[] memory ids = candidate_ids[election_id];
       CandidateInfo[] memory results = new CandidateInfo[](ids.length);
       for(uint i=0; i < ids.length; i++){
-        results[i] = candidates[election_id][i];
+        results[i] = candidates[election_id][ids[i]];
       }
       return results;
     }

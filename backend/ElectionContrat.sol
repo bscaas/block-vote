@@ -26,7 +26,7 @@ contract ElectionContract{
     function createElection(Election memory election) public electionNotExists(election.id) {
         election.phase = "Candidate";
         elections[election.id] = election;
-        elections_ids.push(election.id);
+        election_ids.push(election.id);
     }
 
     function readElection(string memory election_id) public view electionExists(election_id) returns(Election memory){
@@ -45,8 +45,16 @@ contract ElectionContract{
         delete elections[election_id];
     }
 
-    function listElections() returns(string[] memory){
+    function listElectionIds() public view returns(string[] memory){
         return election_ids;
+    }
+
+    function listElections() public view returns(Election[] memory){
+        Election[] memory results = new Election[](election_ids.length);
+        for(uint i =0; i < election_ids.length; i++){
+            results[i] = elections[election_ids[i]];
+        }
+        return results;
     }
 
     function endCandidate(string memory election_id) public electionExists(election_id) {
