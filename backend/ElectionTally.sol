@@ -1,9 +1,12 @@
 pragma solidity ^0.8.0;
 
 import "./VotingDomain.sol";
+import "./ElectionCandidateContract.sol";
 
 contract ElectionTallyContract {
     uint candidate_key_length = 10;
+    address candidate_contract_address;
+
     struct ElectionTally{
         uint total_votes;
         mapping(string => uint) candidate_votes;
@@ -47,8 +50,21 @@ contract ElectionTallyContract {
 
     }
 
+    function setCandidateContractAddress(address addr) public{
+        candidate_contract_address = addr;
+    }
+
 
     function getTally(string memory election_id) public view returns (string[] memory, uint[] memory) {
-        return(new string[](1), new uint[](1)); //TODO: Return tallies
+        ElectionCandidateContract election = ElectionCandidateContract(candidate_contract_address);
+
+        string[] memory candidate_ids = election.listCandidateIds(election_id);
+        uint[] memory counts = new uint[](candidate_ids.length);
+
+        for(uint i = 0; i < candidate_ids.length; i++){
+            counts[i] = tallies[election_id].candidate_votes[candidate_ids[i]];
+        }
+
+        return(candidate_ids, counts);
     }
 }
