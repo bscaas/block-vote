@@ -32,7 +32,7 @@ contract ElectionTallyContract {
             if(vote.fragments.length >= candidate_key_length){
                 //reorder the candidate key fragments (sort)
                 bytes memory candidate_key = new bytes(candidate_key_length);
-                for(uint j=0; j <= vote.fragments.length; j++){
+                for(uint j=0; j < vote.fragments.length; j++){
                     candidate_key[vote.fragments[j].candidate_key_fragment_position] = bytes(vote.fragments[j].candidate_key_fragment)[0];
                 }
                 //if valid candidate key, tally vote
@@ -48,7 +48,7 @@ contract ElectionTallyContract {
     }
 
 
-   function getTally(string memory election_id) public view returns (uint, uint, string[] memory, uint[] memory) {
-        return (tallies[election_id].total_votes,tallies[election_id].candidate_votes[election_id], new string[](1), new uint[](1));
-}
+    function getTally(string memory election_id) public view returns (string[] memory, uint[] memory) {
+        return(new string[](1), new uint[](1)); //TODO: Return tallies
+    }
 }
