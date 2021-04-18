@@ -37,6 +37,9 @@
   }
 }
 
+nav{
+  background-color: #f8f1f1;
+}
 .menu li{
   list-style-type: none;
 }

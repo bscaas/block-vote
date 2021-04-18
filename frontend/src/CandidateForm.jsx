@@ -22,6 +22,7 @@ export class CandidateForm extends React.Component{
 
         return(
             <div className="candidate">
+                <h2 className="text-2xl">Candidate</h2>
                 <label>Name: </label>
                 <input type="text" value={this.candidate.name} onChange={this.handleChangeName}/>
                 {button}                

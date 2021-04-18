@@ -64,6 +64,10 @@ export default function App() {
                   
               })}
             </ul>
+            <div className="text-center w-12">
+              <img src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
+              {0} LBT
+            </div>
           </div>
         </nav>
 
@@ -72,7 +76,7 @@ export default function App() {
         <Switch>
             {router_config.map((item)=>{
                 return (<Route exact path={item.path}>
-                    <div className="p-5 pb-0">
+                    <div className="px-5 pb-0">
                       {React.createElement(item.component)}
                     </div>
                 </Route>)
