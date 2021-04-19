@@ -9,9 +9,12 @@ export default class Home extends React.Component{
         return(
             <div>
 
-                <section className="h-screen bg-opacity-50 bg-black flex items-center justify-center border-b-2 border-green-400 bg-auto bg-no-repeat bg-center" style={{background: "url('" + process.env.PUBLIC_URL + "/assets/images/fist.jpg"}}>
-                    <h2 class="uppercase tracking-wide text-lg text-green-600 font-bold">Election voting on the blockchain</h2>
-                    <p class="mt-1 text-gray-500">A solution that works!</p>
+                <section className="h-screen flex items-center justify-center border-b-2 border-green-400">
+                    <div className="absolute opacity-50 h-full w-full" style={{background: "no-repeat center top url('" + process.env.PUBLIC_URL + "/assets/images/fist.jpg"}}>
+
+                    </div>
+                    <h2 className="uppercase tracking-wide text-3xl text-green-600 font-bold">Election voting on the blockchain</h2>
+                    <p className="mt-1 text-gray-500">A solution that works!</p>
                 </section>
 
                 <section className="h-screen bg-opacity-50 flex items-center justify-center border-b-2 border-green-400">

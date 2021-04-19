@@ -40,7 +40,7 @@ const router_config = [
 export default function App() {
   return (
     <Router>
-        <nav className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 bg-blueGray-500 rounded border-2 border-green-200">
+        <nav className="sticky top-0 z-40 flex flex-wrap items-center justify-between px-2 bg-blueGray-500 rounded border-2 border-green-200">
           <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
             <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href={process.env.PUBLIC_URL}>
               <img className="rounded-lg md:w-56" 
@@ -83,8 +83,34 @@ export default function App() {
             })}
 
         </Switch>
+        
     </Router>
 
   );
 }
 
+export class AppUtil{
+  static stopLoading(){
+    document.getElementById('loader').classList.add('invisible')
+    if(window.loaderInterval){
+      window.clearInterval(window.loaderInterval);
+      window.loaderInterval = null
+    }
+  }
+
+  static startLoading(){
+    document.getElementById('loader').classList.remove('invisible')
+
+    let loaderImage = document.getElementById('loader-image')
+    let loaderAngle = 0;
+    if(window.loaderInterval){
+      window.clearInterval(window.loaderInterval);
+      window.loaderInterval = null
+    }
+    window.loaderInterval = window.setInterval(()=>{
+        loaderAngle +=5
+        loaderImage.style.transform = "rotate3d(0,1,0, "+loaderAngle+"deg)"
+    }, 80)
+
+  }
+}
