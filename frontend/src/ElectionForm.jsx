@@ -3,6 +3,7 @@ import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
 import { Voter } from './contract/VoterRegistrationContract'
+import { AppUtil } from './App'
 export class ElectionForm extends React.Component{
 
     constructor(props){
@@ -11,11 +12,14 @@ export class ElectionForm extends React.Component{
         this.election = props.location.state.election;
 
         if(this.election.id){
+
+            AppUtil.startLoading()
             window.contract.election_candidate.list(this.election.id).then((candidates)=>{
                 this.candidates.length = 0
                 this.candidates.push(...candidates)
                 this.setState({}) //Call setstate to re-render UI
-                
+            
+                AppUtil.stopLoading()    
             })
         }
     }
@@ -64,10 +68,15 @@ export class ElectionForm extends React.Component{
     }
 
     createElection = ()=>{
+        AppUtil.startLoading()
         this.election.id = GeneralUtil.uuidv4()
         window.contract.election.create(this.election).then(()=>{
             alert(this.election.name + ' has been created with id '+ this.election.id)
             this.setState({}) //Call setstate to re-render UI
+            AppUtil.stopLoading()
+        }, ()=>{
+
+            AppUtil.stopLoading()
         })
         
     }

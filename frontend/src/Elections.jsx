@@ -2,12 +2,14 @@ import React from 'react'
 import { withRouter } from 'react-router-dom';
 import GeneralUtil from './util/general-util';
 import { Election } from './contract/ElectionContract';
+import { AppUtil } from './App';
 
 export  class Elections extends React.Component{
     
     constructor(){
         super()
         this.elections = []
+        AppUtil.startLoading()
         window.contract.election.list().then((elections)=>{
             this.elections = elections.map((a)=>new Election(...a))
             this.setState({}) //Call setstate to re-render UI
@@ -18,13 +20,15 @@ export  class Elections extends React.Component{
 
                 })
             }
+
+            AppUtil.stopLoading()
         })
     }
 
     render(){
         return(
             <div className="elections">
-                <i className="fas fa-plus-circle" onClick={()=>{this.editElection(new Election('',''))}}></i>
+                <h1 className="mt-5 text-2xl">Elections<i className="fas fa-plus-circle float-right" onClick={()=>{this.editElection(new Election('',''))}}></i></h1>
                 {this.elections.map((election)=>{
                     return(
                         <div className=" w-full lg:max-w-full lg:flex">
@@ -76,22 +80,34 @@ export  class Elections extends React.Component{
 
     endCandidate(election_id, e){
         e.stopPropagation();
-        window.contract.election.endCandidate(election_id)
+        AppUtil.startLoading()
+        window.contract.election.endCandidate(election_id).finally(()=>{
+            AppUtil.stopLoading()
+        })
         return false
     }
     endRegistration(election_id, e){
         e.stopPropagation();
-        window.contract.election.endRegistration(election_id)
+        AppUtil.startLoading()
+        window.contract.election.endRegistration(election_id).finally(()=>{
+            AppUtil.stopLoading()
+        })
         return false
     }
     endVoting(election_id, e){
         e.stopPropagation();
-        window.contract.election.endVoting(election_id)
+        AppUtil.startLoading()
+        window.contract.election.endVoting(election_id).finally(()=>{
+            AppUtil.stopLoading()
+        })
         return false
     }
     endTally(election_id, e){
         e.stopPropagation();
-        window.contract.election.endTally(election_id)
+        AppUtil.startLoading()
+        window.contract.election.endTally(election_id).finally(()=>{
+            AppUtil.stopLoading()
+        })
         return false
     }
 } 

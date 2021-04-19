@@ -1,6 +1,7 @@
 import React from 'react'
 import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
+import { AppUtil } from './App';
 export class CandidateForm extends React.Component{
 
     constructor(props){
@@ -37,7 +38,13 @@ export class CandidateForm extends React.Component{
 
         window.contract.election_candidate.createCandidate(this.candidate.election_id, this.candidate).then(()=>{
             alert(this.candidate.name + ' has been created with id '+ this.candidate.id)
-            this.setState({}) //Call setstate to re-render UI
+            this.setState({}) //Call setstate to re-render UI, ()=>{
+
+            AppUtil.stopLoading()
+            
+        }, ()=>{
+
+            AppUtil.stopLoading()
         })
         
     }

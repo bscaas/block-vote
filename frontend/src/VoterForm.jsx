@@ -2,6 +2,7 @@ import React from 'react'
 import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
+import { AppUtil } from './App'
 export class VoterForm extends React.Component{
 
     constructor(props){
@@ -29,11 +30,17 @@ export class VoterForm extends React.Component{
     }
 
     registerVoter = ()=>{
+        AppUtil.startLoading()
+
         this.voter.id = 0
         this.voter.blockchain_address = window.ethereum.selectedAddress
         window.contract.voter.register(this.election_id, this.voter).then(()=>{
             alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
             this.setState({}) //Call setstate to re-render UI
+            AppUtil.stopLoading()
+        }, ()=>{
+
+            AppUtil.stopLoading()
         })
         
     }

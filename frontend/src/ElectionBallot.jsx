@@ -3,6 +3,7 @@ import GeneralUtil from './util/general-util'
 import WalletUtil from './util/wallet-util'
 import { EncryptedMessage } from './contract/VotingBoothContract'
 import { withRouter } from 'react-router-dom'
+import { AppUtil } from './App'
 const uint8ArrayFromString = require('uint8arrays/from-string')
 
 export class ElectionBallot extends React.Component {
@@ -39,11 +40,23 @@ export class ElectionBallot extends React.Component {
 
     render(){
         return (
+            
             <div className="ballot">
+                <h1 className="text-2xl">Ballot</h1>
                 {this.state.candidates.map((candidate)=>{
-                    return <div className="ballot-candidate" onClick={()=>this.vote(candidate)}>
-                        {candidate.name}
+                    return <div className=" w-full lg:max-w-full lg:flex" >
+                        <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{background_image: "url('/mountain.jpg')"}} title="Mountain">
+                        </div>
+                        <div className="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal" onClick={()=>this.vote(candidate)}>
+                            <div className="mb-8">
+                                <p className="text-sm text-gray-600 flex items-center">
+                                </p>
+                                <div className="text-gray-900 font-bold text-xl mb-2">{candidate.name}</div>
+                            </div>
+                            
+                        </div>
                     </div>
+                    
                 })}
             </div>
         )       
@@ -56,6 +69,7 @@ export class ElectionBallot extends React.Component {
     }
 
     vote(candidate){
+        AppUtil.startLoading()
         let vote = {
             id: GeneralUtil.uuidv4(),
             candidate_key: candidate.key
@@ -135,16 +149,22 @@ export class ElectionBallot extends React.Component {
                 }))
                 i = i+1
             }
-
+            
         }
 
         store_encryptions().then(()=>{
 
             console.log("Before promises")
             Promise.all(promises).then(()=>{
-                window.contract.voting_booth.submitEncryptedMessages(this.election.id, encrypted_msgs)
+                window.contract.voting_booth.submitEncryptedMessages(this.election.id, encrypted_msgs).then(()=>{
+                    AppUtil.stopLoading()
+                }, ()=>{
+                    AppUtil.stopLoading()
+                })
                 console.log("after promises")
+                
             })
+
         })
     
         
