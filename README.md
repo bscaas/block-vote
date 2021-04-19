@@ -15,7 +15,22 @@ Documentation: [Documentation](https://docs.google.com/document/d/1js9zb1nYTkWUo
 
 Prototype: [ Figma Prototype](https://www.figma.com/proto/Q3mWl2OyrI15ErtsqLwyAH/BlockVote?node-id=115%3A2&viewport=-954%2C235%2C0.25&scaling=scale-down&page-id=0%3A1)
 
-BSC Testnet: [https://tjad.github.io/bscaas](https://tjad.github.io/bscaas)
+
+## Demo Sandbox on BSC Test Net
+Progressive Web App: [https://tjad.github.io/bscaas](https://tjad.github.io/bscaas)
+
+Connect with MetaMask Brave: [Brave Store](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
+
+Connect with MetaMask Chrome: [Metamask Chrome Extension](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
+
+Connect with MetaMask Firefox [Firefox Add on](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/)
+
+
+RPC URL: https://data-seed-prebsc-1-s1.binance.org:8545
+
+Chain ID: 97
+
+
 
 ![Group Logo](https://raw.githubusercontent.com/tjad/bscaas/main/frontend/public/assets/images/bscaas-logo.png "Group Logo")
 
