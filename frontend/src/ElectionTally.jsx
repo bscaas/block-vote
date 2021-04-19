@@ -2,14 +2,20 @@
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import { withRouter } from 'react-router-dom'
 import React from 'react'
 
 
-export default class ElectionTally extends React.Component{
+export class ElectionTally extends React.Component{
     
 
-    constructor(){
+    constructor(props){
         super()
+        this.election = {name: "Unnamed"}
+
+        if(props && props.location && props.location.state){
+            this.election = props.location.state.election;
+        }
             
     }
 
@@ -148,7 +154,13 @@ export default class ElectionTally extends React.Component{
 
     render(){
         return(
-            <div style={{"min-height": '700px'}} id="chartdiv"></div>
+            <div>
+                <h1 className="text-2xl">{this.election.name} Tally Results</h1>
+                <div style={{"min-height": '700px'}} id="chartdiv"></div>
+            </div>
+        
         )
     }
 }
+
+export default withRouter(ElectionTally);
