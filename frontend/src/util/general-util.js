@@ -15,7 +15,7 @@ export default class GeneralUtil {
      * @param {*} length 
      * @param {*} charset 
      */
-    static clashid(length=100, charset=['1','2','3']){
+    static clashid(length=10, charset=['1','2','3']){
         let x  = []
         for(let i=0;i<length;i++)x.push(charset[parseInt(Math.random()*3)])
         return x.join('')

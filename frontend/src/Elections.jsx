@@ -56,7 +56,7 @@ export  class Elections extends React.Component{
                                               ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full right-0" onClick={(e)=>this.endVoting(election.id, e)}>End Voting</button>
                                               : (election.phase == 'Tally'
                                                 ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endTally(election.id, e)}>End Tally</button>
-                                                : '')
+                                                : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.electionResults(election, e)}>Election Results</button>)
                                               
                                               )
                                         
@@ -108,6 +108,11 @@ export  class Elections extends React.Component{
         window.contract.election.endTally(election_id).finally(()=>{
             AppUtil.stopLoading()
         })
+        return false
+    }
+    electionResults = (election, e)=>{
+        e.stopPropagation();
+        this.props.history.push('/election-tally', {election: election })
         return false
     }
 } 
