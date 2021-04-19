@@ -1,22 +1,31 @@
 {
   "files": {
     "main.css": "/bscaas/static/css/main.c2a6dbed.chunk.css",
-    "main.js": "/bscaas/static/js/main.42d27e12.chunk.js",
-    "main.js.map": "/bscaas/static/js/main.42d27e12.chunk.js.map",
-    "runtime-main.js": "/bscaas/static/js/runtime-main.e0933f77.js",
-    "runtime-main.js.map": "/bscaas/static/js/runtime-main.e0933f77.js.map",
-    "static/js/2.c99c2ff8.chunk.js": "/bscaas/static/js/2.c99c2ff8.chunk.js",
-    "static/js/2.c99c2ff8.chunk.js.map": "/bscaas/static/js/2.c99c2ff8.chunk.js.map",
-    "static/js/3.cfaa8eab.chunk.js": "/bscaas/static/js/3.cfaa8eab.chunk.js",
-    "static/js/3.cfaa8eab.chunk.js.map": "/bscaas/static/js/3.cfaa8eab.chunk.js.map",
+    "main.js": "/bscaas/static/js/main.02baa2ee.chunk.js",
+    "main.js.map": "/bscaas/static/js/main.02baa2ee.chunk.js.map",
+    "runtime-main.js": "/bscaas/static/js/runtime-main.b8d2e6c8.js",
+    "runtime-main.js.map": "/bscaas/static/js/runtime-main.b8d2e6c8.js.map",
+    "xlsx.js": "/bscaas/static/js/xlsx.6201c2bc.chunk.js",
+    "xlsx.js.map": "/bscaas/static/js/xlsx.6201c2bc.chunk.js.map",
+    "static/js/3.bc37c1fb.chunk.js": "/bscaas/static/js/3.bc37c1fb.chunk.js",
+    "static/js/3.bc37c1fb.chunk.js.map": "/bscaas/static/js/3.bc37c1fb.chunk.js.map",
+    "static/js/4.40f3944b.chunk.js": "/bscaas/static/js/4.40f3944b.chunk.js",
+    "static/js/4.40f3944b.chunk.js.map": "/bscaas/static/js/4.40f3944b.chunk.js.map",
+    "static/js/5.f47447b0.chunk.js": "/bscaas/static/js/5.f47447b0.chunk.js",
+    "static/js/5.f47447b0.chunk.js.map": "/bscaas/static/js/5.f47447b0.chunk.js.map",
+    "static/js/6.9c81210d.chunk.js": "/bscaas/static/js/6.9c81210d.chunk.js",
+    "static/js/6.9c81210d.chunk.js.map": "/bscaas/static/js/6.9c81210d.chunk.js.map",
+    "static/js/7.38ced263.chunk.js": "/bscaas/static/js/7.38ced263.chunk.js",
+    "static/js/7.38ced263.chunk.js.map": "/bscaas/static/js/7.38ced263.chunk.js.map",
     "index.html": "/bscaas/index.html",
     "static/css/main.c2a6dbed.chunk.css.map": "/bscaas/static/css/main.c2a6dbed.chunk.css.map",
-    "static/js/2.c99c2ff8.chunk.js.LICENSE.txt": "/bscaas/static/js/2.c99c2ff8.chunk.js.LICENSE.txt"
+    "static/js/3.bc37c1fb.chunk.js.LICENSE.txt": "/bscaas/static/js/3.bc37c1fb.chunk.js.LICENSE.txt",
+    "static/js/6.9c81210d.chunk.js.LICENSE.txt": "/bscaas/static/js/6.9c81210d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e0933f77.js",
-    "static/js/2.c99c2ff8.chunk.js",
+    "static/js/runtime-main.b8d2e6c8.js",
+    "static/js/3.bc37c1fb.chunk.js",
     "static/css/main.c2a6dbed.chunk.css",
-    "static/js/main.42d27e12.chunk.js"
+    "static/js/main.02baa2ee.chunk.js"
   ]
 }
