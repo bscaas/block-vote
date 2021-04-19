@@ -59,7 +59,7 @@ export class ElectionForm extends React.Component{
                 
                 <h3 className="text-xl" >Candidates</h3>
                 { this.election.id
-                    ? <Candidates election_id={this.election.id} can_register={this.election.phase != 'Candidate'} candidates={this.candidates}></Candidates>
+                    ? <Candidates election_id={this.election.id} can_register={this.election.phase == 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
                 }
             </div>

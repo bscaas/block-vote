@@ -14,6 +14,10 @@ export class Candidates extends React.Component{
     render(){
         return(
             <div className="candidates">
+                {this.can_register 
+                ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{this.editCandidate(new ElectionCandidate('','',this.election_id, '','',''))}}>Create</button>
+                : ''}
+                
                 {this.candidates.map((candidate)=>{
                     return(
 
