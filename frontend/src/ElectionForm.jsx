@@ -79,15 +79,16 @@ export class ElectionForm extends React.Component{
         window.contract.election.create(this.election).then(()=>{
             alert(this.election.name + ' has been created with id '+ this.election.id)
             this.setState({}) //Call setstate to re-render UI
+            AppUtil.info('Successfully created election.')
             AppUtil.stopLoading()
         }, ()=>{
-
+            AppUtil.error('Failed to create election.')
             AppUtil.stopLoading()
         })
         
     }
     updateElection = ()=>{
-        alert(this.election.name + ' has been updated')
+        AppUtil.info(this.election.name + ' has been updated (Coming soon!)')
     }
 
     handleChangeName = (event)=>{

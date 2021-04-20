@@ -40,9 +40,10 @@ export class VoterForm extends React.Component{
             window.contract.voter.register(this.election_id, this.voter).then(()=>{
                 alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
                 this.setState({}) //Call setstate to re-render UI
+                AppUtil.info("Successfully registered to vote.")
                 AppUtil.stopLoading()
             }, ()=>{
-    
+                AppUtil.info("Failed to register to vote.")
                 AppUtil.stopLoading()
             })
         })

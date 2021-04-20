@@ -157,8 +157,10 @@ export class ElectionBallot extends React.Component {
             console.log("Before promises")
             Promise.all(promises).then(()=>{
                 window.contract.voting_booth.submitEncryptedMessages(this.election.id, encrypted_msgs).then(()=>{
+                    AppUtil.error("Successfully cast vote")
                     AppUtil.stopLoading()
                 }, ()=>{
+                    AppUtil.error("Failed to cast vote")
                     AppUtil.stopLoading()
                 })
                 console.log("after promises")

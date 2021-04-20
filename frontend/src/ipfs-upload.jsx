@@ -21,8 +21,10 @@ export default class IPFSUpload extends React.Component{
             for await (const result of results){
                 this.cid = result.path            
             }
+            AppUtil.info("File upload successful.")
         }
         else{
+            AppUtil.error("Select a file before uploading.")
             
         }
 
