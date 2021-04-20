@@ -15,14 +15,14 @@ export class CandidateForm extends React.Component{
         let button;
         
         if(this.candidate.id ){
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateCandidate}>Update</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateCandidate}>Update</button>
         }
         else{
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createCandidate}>Create</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createCandidate}>Create</button>
         }
 
         return(
-            <div className="candidate">
+            <div className="candidate mt-10 mb-10">
                 <h2 className="text-2xl">Candidate</h2>
                 <label>Name: </label>
                 <input type="text" value={this.candidate.name} onChange={this.handleChangeName}/>

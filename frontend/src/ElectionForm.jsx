@@ -29,16 +29,16 @@ export class ElectionForm extends React.Component{
         let button;
         
         if(this.election.id ){
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateElection}>Update</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateElection}>Update</button>
         }
         else{
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createElection}>Create</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createElection}>Create</button>
         }
 
         let voteButton = '';
 
         if(this.election.phase == 'Registration'){
-            voteButton = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoRegistration}>Register to Vote</button>
+            voteButton = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoRegistration}>Register to Vote</button>
         }
         else if(this.election.phase == 'Voting')
         {
@@ -58,7 +58,7 @@ export class ElectionForm extends React.Component{
                 
                 
                 <h3 className="text-xl" >Candidates</h3>
-                { this.election.id
+                { this.election.id  
                     ? <Candidates election_id={this.election.id} can_register={this.election.phase == 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
                 }

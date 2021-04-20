@@ -48,21 +48,23 @@ export  class Elections extends React.Component{
                                 <div className="flex items-center">
                                     <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">Phase: {election.phase}</span>
                                     
-                                    {   election.phase == 'Candidate'
-                                        ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endCandidate(election.id, e)}>End Candidate Registration</button>
-                                        : (election.phase == 'Registration'
-                                           ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endRegistration(election.id, e)}>End Voter Registration</button>
-                                           : (election.phase == 'Voting'
-                                              ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full right-0" onClick={(e)=>this.endVoting(election.id, e)}>End Voting</button>
-                                              : (election.phase == 'Tally'
-                                                ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endTally(election.id, e)}>End Tally</button>
-                                                : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.electionResults(election, e)}>Election Results</button>)
-                                              
-                                              )
+                                    <span className="ml-auto order-2">
+                                        {   election.phase == 'Candidate'
+                                            ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endCandidate(election.id, e)}>End Candidate Registration</button>
+                                            : (election.phase == 'Registration'
+                                            ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endRegistration(election.id, e)}>End Voter Registration</button>
+                                            : (election.phase == 'Voting'
+                                                ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full right-0" onClick={(e)=>this.endVoting(election.id, e)}>End Voting</button>
+                                                : (election.phase == 'Tally'
+                                                    ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endTally(election.id, e)}>End Tally</button>
+                                                    : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.electionResults(election, e)}>Election Results</button>)
+                                                
+                                                )
+                                            
+                                            )
                                         
-                                        )
-                                    
-                                    }
+                                        }
+                                    </span>
                                 </div>
                             </div>
                         </div>

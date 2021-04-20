@@ -16,10 +16,10 @@ export class VoterForm extends React.Component{
         
 
         return(
-            <div className="voter">
+            <div className="voter mb-10 mt-10">
                 <label>National Identity Number: </label>
                 <input type="text" value={this.voter.name} onChange={this.handleChangeNIN}/>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.registerVoter}>Register</button>             
+                <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.registerVoter}>Register</button>             
                 { this.voter.id
                     ? <Candidates can_register={this.voter.phase != 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
