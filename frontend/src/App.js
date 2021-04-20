@@ -69,7 +69,7 @@ export default function App() {
             </ul>
             <div className="text-center w-12">
               <img src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-              {0} LBT
+              {0} LBTY
             </div>
           </div>
         </nav>
