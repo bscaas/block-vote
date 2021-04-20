@@ -16,6 +16,8 @@ contract ElectionCandidateContract{
      mapping (string => mapping (string => CandidateInfo)) candidates;
      mapping (string => string[]) candidate_ids;
      mapping (string => string[]) candidate_keys;
+     mapping (string => mapping(string=>bool)) candidate_key_exist;
+     mapping (string => mapping(string=>bool)) candidate_name_exist;
 
     modifier candidateNotExists(string memory _election_id, string memory _candidate_id ){
          bytes memory _candidateIDbytes = bytes(_candidate_id);
@@ -31,8 +33,17 @@ contract ElectionCandidateContract{
       }
    
     function createCandidate(string memory _election_id, CandidateInfo memory _candidateinfo) public candidateNotExists(_election_id, _candidateinfo.id ) {
+        require(!candidate_key_exist[_election_id][_candidateinfo.key], "Duplicate candidate key for election.");
+        require(!candidate_name_exist[_election_id][_candidateinfo.name], "Duplicate candidate name for election.");
+
         candidates[_election_id][ _candidateinfo.id] = _candidateinfo;
         candidate_ids[_election_id].push(_candidateinfo.id);
+
+        candidate_keys[_election_id].push(_candidateinfo.key);
+        candidate_key_exist[_election_id][_candidateinfo.key] = true;
+
+        candidate_name_exist[_election_id][_candidateinfo.name] = true;
+        
     }
 
     function readCandidate(string memory _election_id, string memory _candidate_id)public view candidateExists(_election_id, _candidate_id) returns (CandidateInfo memory){
