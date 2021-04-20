@@ -31,10 +31,10 @@ export default class IPFSUpload extends React.Component{
 
     render(){
         return(
-            <div>
+            <span>
                 <input type="file" onChange={this.handleChange} />
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.upload}>Upload</button>
-            </div>
+            </span>
         
         )
     }

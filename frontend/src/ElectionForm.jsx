@@ -56,6 +56,7 @@ export class ElectionForm extends React.Component{
                 <h3 className="text-2xl">Election</h3> {voteButton}
                 <label>Name: </label>
                 <input type="text" value={this.election.name} onChange={this.handleChangeName}/>
+                <br/>
                 <label>Banner:</label>
                 <IPFSUpload ref={this.ipfs_upload}></IPFSUpload>
                 {button}                
