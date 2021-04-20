@@ -82,6 +82,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endCandidate(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Registration'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -90,6 +92,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endRegistration(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Voting'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -98,6 +102,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endVoting(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Tally'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -106,6 +112,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endTally(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Ended'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
