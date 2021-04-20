@@ -4,12 +4,14 @@ import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
 import { Voter } from './contract/VoterRegistrationContract'
 import { AppUtil } from './App'
+import IPFSUpload from './ipfs-upload'
 export class ElectionForm extends React.Component{
 
     constructor(props){
         super()
         this.candidates = []
         this.election = props.location.state.election;
+        this.ipfs_upload = React.createRef()
 
         if(this.election.id){
 
@@ -50,10 +52,12 @@ export class ElectionForm extends React.Component{
         
 
         return(
-            <div className="election">
+            <div className="election mb-10 mt-10">
                 <h3 className="text-2xl">Election</h3> {voteButton}
                 <label>Name: </label>
                 <input type="text" value={this.election.name} onChange={this.handleChangeName}/>
+                <label>Banner:</label>
+                <IPFSUpload ref={this.ipfs_upload}></IPFSUpload>
                 {button}                
                 
                 
@@ -70,6 +74,7 @@ export class ElectionForm extends React.Component{
     createElection = ()=>{
         AppUtil.startLoading()
         this.election.id = GeneralUtil.uuidv4()
+        this.election.image_cid = this.ipfs_upload.current.cid
         window.contract.election.create(this.election).then(()=>{
             alert(this.election.name + ' has been created with id '+ this.election.id)
             this.setState({}) //Call setstate to re-render UI
