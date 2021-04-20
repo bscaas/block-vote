@@ -26,33 +26,31 @@ export class ElectionTally extends React.Component{
         AppUtil.startLoading()
 
         window.contract.election_tally.getTally(this.election.id).then((results)=>{
-            let data = []
 
             window.contract.election_candidate.list(this.election.id).then((candidates)=>{
 
-                let images = ["https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg", "https://www.amcharts.com/wp-content/uploads/2019/04/joey.jpg", "https://www.amcharts.com/wp-content/uploads/2019/04/ross.jpg", "https://www.amcharts.com/wp-content/uploads/2019/04/phoebe.jpg",
-                "https://www.amcharts.com/wp-content/uploads/2019/04/rachel.jpg", "https://www.amcharts.com/wp-content/uploads/2019/04/monica.jpg" ] //place holder until candidates support images from the ui
                 
+                let data = []
                 for(let c of candidates){
 
                     let idx = results[0].findIndex((x)=>x==c.key)
 
-                    if(idx){
+                    if(idx > -1){
                         data.push({name: c.name,
                             steps: results[1][idx],
-                            href: images[idx%images.length]
+                            href: AppUtil.ipfsUrl(c.profile_image_hash)
                         })
                     }
                 }
 
 
+                this.renderChart(data)
+                AppUtil.stopLoading()
 
 
 
             })
 
-            this.renderChart(data)
-            AppUtil.stopLoading()
             
         },()=>{AppUtil.stopLoading()})
 

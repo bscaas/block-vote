@@ -120,7 +120,7 @@ export class AppUtil{
   static ipfsUrl(cid){
     let config = require('./config.json')
     if(cid){
-      return config.ipfs.endpoint + "/" + cid
+      return config.ipfs.endpoint + cid
     }
 
     return process.env.PUBLIC_URL+ "/assets/images/image_not_available.png"

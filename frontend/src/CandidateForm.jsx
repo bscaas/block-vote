@@ -28,6 +28,7 @@ export class CandidateForm extends React.Component{
                 <h2 className="text-2xl">Candidate</h2>
                 <label>Name: </label>
                 <input type="text" value={this.candidate.name} onChange={this.handleChangeName}/>
+                <br/>
                 <IPFSUpload ref={this.ipfs_upload}></IPFSUpload>
                 {button}                
 
@@ -37,10 +38,11 @@ export class CandidateForm extends React.Component{
     }
 
     createCandidate = ()=>{
+        AppUtil.startLoading()
         this.candidate.id = GeneralUtil.uuidv4()
         this.candidate.key = GeneralUtil.clashid()
         this.candidate.profile_image_hash = this.ipfs_upload.current.cid
-        
+
         window.contract.election_candidate.createCandidate(this.candidate.election_id, this.candidate).then(()=>{
             this.setState({}) //Call setstate to re-render UI, ()=>{
 
