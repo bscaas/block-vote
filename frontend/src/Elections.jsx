@@ -32,7 +32,7 @@ export  class Elections extends React.Component{
                 {this.elections.map((election)=>{
                     return(
                         <div className=" w-full lg:max-w-full lg:flex">
-                            <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{background_image: "url('/mountain.jpg')"}} title="Mountain">
+                            <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{"background-image": "url('" + AppUtil.ipfsUrl(election.image_cid) + "')"}} title="Mountain">
                             </div>
                             <div className="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal" onClick={()=>{this.editElection(election)}}>
                                 <div className="mb-8">
@@ -48,21 +48,23 @@ export  class Elections extends React.Component{
                                 <div className="flex items-center">
                                     <span className="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">Phase: {election.phase}</span>
                                     
-                                    {   election.phase == 'Candidate'
-                                        ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endCandidate(election.id, e)}>End Candidate Registration</button>
-                                        : (election.phase == 'Registration'
-                                           ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endRegistration(election.id, e)}>End Voter Registration</button>
-                                           : (election.phase == 'Voting'
-                                              ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full right-0" onClick={(e)=>this.endVoting(election.id, e)}>End Voting</button>
-                                              : (election.phase == 'Tally'
-                                                ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endTally(election.id, e)}>End Tally</button>
-                                                : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.electionResults(election, e)}>Election Results</button>)
-                                              
-                                              )
+                                    <span className="ml-auto order-2">
+                                        {   election.phase == 'Candidate'
+                                            ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endCandidate(election.id, e)}>End Candidate Registration</button>
+                                            : (election.phase == 'Registration'
+                                            ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endRegistration(election.id, e)}>End Voter Registration</button>
+                                            : (election.phase == 'Voting'
+                                                ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full right-0" onClick={(e)=>this.endVoting(election.id, e)}>End Voting</button>
+                                                : (election.phase == 'Tally'
+                                                    ? <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.endTally(election.id, e)}>End Tally</button>
+                                                    : <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={(e)=>this.electionResults(election, e)}>Election Results</button>)
+                                                
+                                                )
+                                            
+                                            )
                                         
-                                        )
-                                    
-                                    }
+                                        }
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -82,6 +84,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endCandidate(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Registration'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -90,6 +94,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endRegistration(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Voting'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -98,6 +104,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endVoting(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Tally'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false
@@ -106,6 +114,8 @@ export  class Elections extends React.Component{
         e.stopPropagation();
         AppUtil.startLoading()
         window.contract.election.endTally(election_id).finally(()=>{
+            this.elections.find((election)=>election.id == election_id).phase = 'Ended'
+            this.setState({}) //Call setstate to re-render UI
             AppUtil.stopLoading()
         })
         return false

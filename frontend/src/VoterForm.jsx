@@ -3,6 +3,7 @@ import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
 import { AppUtil } from './App'
+import WalletUtil from './util/wallet-util'
 export class VoterForm extends React.Component{
 
     constructor(props){
@@ -16,10 +17,10 @@ export class VoterForm extends React.Component{
         
 
         return(
-            <div className="voter">
+            <div className="voter mb-10 mt-10">
                 <label>National Identity Number: </label>
                 <input type="text" value={this.voter.name} onChange={this.handleChangeNIN}/>
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.registerVoter}>Register</button>             
+                <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.registerVoter}>Register</button>             
                 { this.voter.id
                     ? <Candidates can_register={this.voter.phase != 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
@@ -34,14 +35,19 @@ export class VoterForm extends React.Component{
 
         this.voter.id = 0
         this.voter.blockchain_address = window.ethereum.selectedAddress
-        window.contract.voter.register(this.election_id, this.voter).then(()=>{
-            alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
-            this.setState({}) //Call setstate to re-render UI
-            AppUtil.stopLoading()
-        }, ()=>{
-
-            AppUtil.stopLoading()
+        this.voter.public_key = WalletUtil.getPublicKey().then((public_key)=>{
+            this.voter.public_key = public_key
+            window.contract.voter.register(this.election_id, this.voter).then(()=>{
+                alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
+                this.setState({}) //Call setstate to re-render UI
+                AppUtil.info("Successfully registered to vote.")
+                AppUtil.stopLoading()
+            }, ()=>{
+                AppUtil.info("Failed to register to vote.")
+                AppUtil.stopLoading()
+            })
         })
+        
         
     }
 

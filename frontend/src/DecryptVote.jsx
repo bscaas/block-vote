@@ -1,6 +1,7 @@
 import React from 'react'
 import WalletUtil from './util/wallet-util'
 import { withRouter } from 'react-router-dom'
+import { AppUtil } from './App'
 
 
 export  class DecryptVote extends React.Component {
@@ -68,9 +69,9 @@ export  class DecryptVote extends React.Component {
                 window.contract.voting_booth.submitEncryptedMessages(this.election_id, decrypted_messages),
                 window.contract.election_tally.submitVoteFragments(this.election_id, decrypted_votes)
             ]).then(()=>{
-                console.log(decrypted_messages)
                 this.already_decrypted_messages = this.already_decrypted_messages.concat(this.messages.map((m)=>window.web3.utils.keccak256(m).toString()))
                 localStorage.setItem('decrypt'+this.election_id, JSON.stringify(this.already_decrypted_messages))
+                AppUtil.info("Successfully decrypted " + this.messages.length + " messages.")
             })
             
         })

@@ -4,12 +4,14 @@ import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
 import { Voter } from './contract/VoterRegistrationContract'
 import { AppUtil } from './App'
+import IPFSUpload from './ipfs-upload'
 export class ElectionForm extends React.Component{
 
     constructor(props){
         super()
         this.candidates = []
         this.election = props.location.state.election;
+        this.ipfs_upload = React.createRef()
 
         if(this.election.id){
 
@@ -29,16 +31,16 @@ export class ElectionForm extends React.Component{
         let button;
         
         if(this.election.id ){
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateElection}>Update</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.updateElection}>Update</button>
         }
         else{
-            button = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createElection}>Create</button>
+            button = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.createElection}>Create</button>
         }
 
         let voteButton = '';
 
         if(this.election.phase == 'Registration'){
-            voteButton = <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoRegistration}>Register to Vote</button>
+            voteButton = <button className="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={this.gotoRegistration}>Register to Vote</button>
         }
         else if(this.election.phase == 'Voting')
         {
@@ -50,15 +52,18 @@ export class ElectionForm extends React.Component{
         
 
         return(
-            <div className="election">
+            <div className="election mb-10 mt-10">
                 <h3 className="text-2xl">Election</h3> {voteButton}
                 <label>Name: </label>
                 <input type="text" value={this.election.name} onChange={this.handleChangeName}/>
+                <br/>
+                <label>Banner:</label>
+                <IPFSUpload ref={this.ipfs_upload}></IPFSUpload>
                 {button}                
                 
                 
                 <h3 className="text-xl" >Candidates</h3>
-                { this.election.id
+                { this.election.id  
                     ? <Candidates election_id={this.election.id} can_register={this.election.phase == 'Candidate'} candidates={this.candidates}></Candidates>
                     : ''
                 }
@@ -70,18 +75,20 @@ export class ElectionForm extends React.Component{
     createElection = ()=>{
         AppUtil.startLoading()
         this.election.id = GeneralUtil.uuidv4()
+        this.election.image_cid = this.ipfs_upload.current.cid
         window.contract.election.create(this.election).then(()=>{
             alert(this.election.name + ' has been created with id '+ this.election.id)
             this.setState({}) //Call setstate to re-render UI
+            AppUtil.info('Successfully created election.')
             AppUtil.stopLoading()
         }, ()=>{
-
+            AppUtil.error('Failed to create election.')
             AppUtil.stopLoading()
         })
         
     }
     updateElection = ()=>{
-        alert(this.election.name + ' has been updated')
+        AppUtil.info(this.election.name + ' has been updated (Coming soon!)')
     }
 
     handleChangeName = (event)=>{

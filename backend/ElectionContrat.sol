@@ -11,6 +11,7 @@ contract ElectionContract{
         string name;
         string phase;
         string elected_candidate_id;
+        string image_cid;
     }
     
     modifier electionExists(string memory id){

@@ -42,10 +42,11 @@ export default class ElectionContract extends BaseContract{
 }
 
 export class Election{
-    constructor(id, name, phase="Candidate", election_candidate_id=""){
+    constructor(id, name, phase="Candidate", election_candidate_id="", image_cid){
         this.id = id
         this.name = name
         this.phase = phase
         this.elected_candidate_id = election_candidate_id
+        this.image_cid = image_cid
     }
 }

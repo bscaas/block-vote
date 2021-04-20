@@ -16,6 +16,7 @@ import ElectionForm from "./ElectionForm";
 import CandidateForm from "./CandidateForm";
 import VoterForm from "./VoterForm";
 import ElectionTally from "./ElectionTally";
+import Status from "./Status";
 
 
 /*
@@ -73,7 +74,7 @@ export default function App() {
           </div>
         </nav>
 
-
+        <Status></Status>
         
         <Switch>
             {router_config.map((item)=>{
@@ -92,6 +93,7 @@ export default function App() {
 }
 
 export class AppUtil{
+  
   static stopLoading(){
     document.getElementById('loader').classList.add('invisible')
     if(window.loaderInterval){
@@ -115,4 +117,35 @@ export class AppUtil{
     }, 80)
 
   }
+
+  static ipfsUrl(cid){
+    let config = require('./config.json')
+    if(cid){
+      return config.ipfs.endpoint + cid
+    }
+
+    return process.env.PUBLIC_URL+ "/assets/images/image_not_available.png"
+
+
+  }
+
+  static setStatusBox(status){
+        AppUtil.statusBox = status
+  }
+
+  static error(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'error'})
+
+  }
+
+  static info(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'info'})
+
+  }
+
+  static warn(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'warn'})
+  }
 }
+
+

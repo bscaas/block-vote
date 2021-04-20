@@ -1,0 +1,12 @@
+.info{
+    background-color: lightblue;
+}
+
+.error{
+    background-color: indianred;
+
+}
+
+.warn{
+    background-color: darkgoldenrod;
+}

@@ -2,7 +2,8 @@
     "ipfs":{
         "host": "ipfs.infura.io",
         "port": 5001,
-        "protocol": "https"
+        "protocol": "https",
+        "endpoint": "https://ipfs.infura.io/ipfs/"
     },
     
     "voting_booth":{
