@@ -14,7 +14,7 @@ export default class ElectionTallyContract extends BaseContract{
     }
 
     getTally(election_id){
-        return this.contract.methods.getTally(election_id).send({from: window.ethereum.selectedAddress, gas: 5000000})
+        return this.contract.methods.getTally(election_id).call()
     }
 }
 
