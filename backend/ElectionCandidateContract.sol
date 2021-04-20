@@ -15,6 +15,7 @@ contract ElectionCandidateContract{
 
      mapping (string => mapping (string => CandidateInfo)) candidates;
      mapping (string => string[]) candidate_ids;
+     mapping (string => string[]) candidate_keys;
 
     modifier candidateNotExists(string memory _election_id, string memory _candidate_id ){
          bytes memory _candidateIDbytes = bytes(_candidate_id);
@@ -61,6 +62,9 @@ contract ElectionCandidateContract{
       return results;
     }
 
+    function listCandidateKeys(string memory election_id) public view returns(string[] memory){
+      return candidate_keys[election_id];  
+    }
 
 }
 

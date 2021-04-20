@@ -58,13 +58,13 @@ contract ElectionTallyContract {
     function getTally(string memory election_id) public view returns (string[] memory, uint[] memory) {
         ElectionCandidateContract election = ElectionCandidateContract(candidate_contract_address);
 
-        string[] memory candidate_ids = election.listCandidateIds(election_id);
-        uint[] memory counts = new uint[](candidate_ids.length);
+        string[] memory candidate_keys = election.listCandidateKeys(election_id);
+        uint[] memory counts = new uint[](candidate_keys.length);
 
-        for(uint i = 0; i < candidate_ids.length; i++){
-            counts[i] = tallies[election_id].candidate_votes[candidate_ids[i]];
+        for(uint i = 0; i < candidate_keys.length; i++){
+            counts[i] = tallies[election_id].candidate_votes[candidate_keys[i]];
         }
 
-        return(candidate_ids, counts);
+        return(candidate_keys, counts);
     }
 }
