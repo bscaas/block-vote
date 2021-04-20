@@ -38,9 +38,9 @@ export  class Elections extends React.Component{
                                 <div className="mb-8">
                                     <p className="text-sm text-gray-600 flex items-center">
                                     <img className="w-6" src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-                                        122 522 901 LBT FUNDED
+                                        122 522 901 LBTY FUNDED
                                     <img className="ml-4 w-6" src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-                                        122 522 901 LBT REWARDED
+                                        122 522 901 LBTY REWARDED
                                     </p>
                                     
                                 <div className="text-gray-900 font-bold text-xl mb-2">{election.name}</div>
