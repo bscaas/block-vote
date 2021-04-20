@@ -92,6 +92,7 @@ export default function App() {
 }
 
 export class AppUtil{
+  
   static stopLoading(){
     document.getElementById('loader').classList.add('invisible')
     if(window.loaderInterval){
@@ -113,6 +114,17 @@ export class AppUtil{
         loaderAngle +=5
         loaderImage.style.transform = "rotate3d(0,1,0, "+loaderAngle+"deg)"
     }, 80)
+
+  }
+
+  static ipfsUrl(cid){
+    let config = require('./config.json')
+    if(cid){
+      return config.ipfs.endpoint + "/" + cid
+    }
+
+    return process.env.PUBLIC_URL+ "/assets/images/image_not_available.png"
+
 
   }
 }

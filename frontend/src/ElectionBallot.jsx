@@ -45,7 +45,7 @@ export class ElectionBallot extends React.Component {
                 <h1 className="text-2xl">Ballot</h1>
                 {this.state.candidates.map((candidate)=>{
                     return <div className=" w-full lg:max-w-full lg:flex" >
-                        <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{background_image: "url('/mountain.jpg')"}} title="Mountain">
+                        <div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-2 border-green-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style={{"background-image": "url('" + AppUtil.ipfsUrl(candidate.profile_image_hash) + "')"}} title="Mountain">
                         </div>
                         <div className="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal" onClick={()=>this.vote(candidate)}>
                             <div className="mb-8">
