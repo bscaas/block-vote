@@ -3,6 +3,7 @@ import GeneralUtil from './util/general-util'
 import { withRouter } from 'react-router-dom'
 import Candidates from './Candidates'
 import { AppUtil } from './App'
+import WalletUtil from './util/wallet-util'
 export class VoterForm extends React.Component{
 
     constructor(props){
@@ -34,14 +35,18 @@ export class VoterForm extends React.Component{
 
         this.voter.id = 0
         this.voter.blockchain_address = window.ethereum.selectedAddress
-        window.contract.voter.register(this.election_id, this.voter).then(()=>{
-            alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
-            this.setState({}) //Call setstate to re-render UI
-            AppUtil.stopLoading()
-        }, ()=>{
-
-            AppUtil.stopLoading()
+        this.voter.public_key = WalletUtil.getPublicKey().then((public_key)=>{
+            this.voter.public_key = public_key
+            window.contract.voter.register(this.election_id, this.voter).then(()=>{
+                alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
+                this.setState({}) //Call setstate to re-render UI
+                AppUtil.stopLoading()
+            }, ()=>{
+    
+                AppUtil.stopLoading()
+            })
         })
+        
         
     }
 
