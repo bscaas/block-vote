@@ -16,6 +16,7 @@ import ElectionForm from "./ElectionForm";
 import CandidateForm from "./CandidateForm";
 import VoterForm from "./VoterForm";
 import ElectionTally from "./ElectionTally";
+import Status from "./Status";
 
 
 /*
@@ -73,7 +74,7 @@ export default function App() {
           </div>
         </nav>
 
-
+        <Status></Status>
         
         <Switch>
             {router_config.map((item)=>{
@@ -127,4 +128,24 @@ export class AppUtil{
 
 
   }
+
+  static setStatusBox(status){
+        AppUtil.statusBox = status
+  }
+
+  static error(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'error'})
+
+  }
+
+  static info(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'info'})
+
+  }
+
+  static warn(msg){
+    AppUtil.statusBox.addMessage({message: msg, class: 'warn'})
+  }
 }
+
+
