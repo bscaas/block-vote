@@ -1,10 +1,13 @@
 pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
+import "./VotingBooth.sol";
 
 contract ElectionContract{
 
     mapping(string=>Election) elections;
     string[] election_ids;
+
+    address voting_booth_address;
 
     struct Election{
         string id;
@@ -69,6 +72,9 @@ contract ElectionContract{
         require(keccak256(bytes(election.phase)) == keccak256("Registration"), "Not in phase 'Registration'");
         election.phase = "Voting";
 
+        VotingBoothContract voting_booth = VotingBoothContract(voting_booth_address);
+
+        voting_booth.prepareVoterBatches(election_id);
 
     }
 
@@ -77,7 +83,6 @@ contract ElectionContract{
         require(keccak256(bytes(election.phase)) == keccak256("Voting"), "Not in phase 'Voting'");
         election.phase = "Tally";
 
-
     }
 
     function endTally(string memory election_id) public electionExists(election_id){
@@ -85,5 +90,11 @@ contract ElectionContract{
         require(keccak256(bytes(election.phase)) == keccak256("Tally"), "Not in phase 'Tally'");
         election.phase = "Ended";
     }
+
+    function setVotingBoothAddress(address addr) public {
+        voting_booth_address = addr;
+    }
+
+
 
 }
