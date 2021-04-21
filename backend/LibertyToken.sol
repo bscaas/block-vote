@@ -93,10 +93,10 @@ contract LibertyToken is IRewardToken{
         return allowed[_owner][_spender];
     }
 
-    function grantReward(IRewardBearer bearer, uint8 reward_id) external override returns(bool){
+    function grantReward(IRewardBearer bearer, uint8 reward_id, bytes memory options) external override returns(bool){
         require(reward_providers[bearer].length > 0, "No reward providers for this bearer");
 
-        uint reward = bearer.eligibleForReward(reward_id, msg.sender);
+        uint reward = bearer.eligibleForReward(reward_id, msg.sender, options);
         require(reward > 0, "You are not eligible for rewards from this bearer or the reward was zero.");
        
        uint total_locked = 0;
@@ -139,6 +139,18 @@ contract LibertyToken is IRewardToken{
 
         return true;
 
+    }
+
+    function getTotalRewards(IRewardBearer bearer) external override returns(uint){
+
+        uint total_locked;
+        address[] memory providers = reward_providers[bearer];
+
+        for(uint i=0; i < providers.length; i++){
+            total_locked += locked[providers[i]][bearer];
+        }
+
+        return total_locked;
     }
 
 
