@@ -28,7 +28,8 @@ contract VoterRegistrationContract {
         string memory voter_nin = voter.nin;
         require (RegistrationUtility.luhnCheck(voter_nin), "Invalid Nation Identity Number");
         bytes memory bytesVoter_nin = bytes(voter.nin);
-        require(nins_exists[election_id][voter_nin] = true, "Voter National Identity Number already exists ");
+        require(!nins_exists[election_id][voter_nin], "Voter National Identity Number already exists ");
+        nins_exists[election_id][voter_nin] = true;
         uint next_id = voter_counts[election_id];
         voter.id = next_id;
         voters[election_id][next_id] = voter;
