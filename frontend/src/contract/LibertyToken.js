@@ -9,8 +9,8 @@ export default class LibertyToken extends BaseContract{
         return this.contract.methods.totalSupply().call();
     }
 
-    balanceOf(owner){
-        return this.contract.methods.balanceOf(owner).call();
+    balance(){
+        return this.contract.methods.balanceOf(window.ethereum.selectedAddress).call({from: window.ethereum.selectedAddress, gas: 5000000});
     }
 
     transfer(to, value){

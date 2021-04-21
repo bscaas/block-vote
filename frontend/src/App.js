@@ -69,7 +69,7 @@ export default function App() {
             </ul>
             <div className="text-center w-12">
               <img src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-              {0} LBTY
+              {async ()=> {return await this.contract.methods.liberty_token.balance()}} LBTY
             </div>
           </div>
         </nav>
