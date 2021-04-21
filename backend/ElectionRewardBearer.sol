@@ -11,6 +11,8 @@ contract ElectionRewardBearer is IRewardBearer{
     IRewardToken token;
     VoterRegistrationContract voter_registration;
 
+    mapping(string => mapping(address => mapping(uint => uint))) claimed_rewards;
+
     mapping(string=>uint) election_funds;
 
     constructor(IRewardToken _token){
@@ -18,12 +20,25 @@ contract ElectionRewardBearer is IRewardBearer{
     }
 
     function eligibleForReward(uint8 reward_id, address receiver, bytes memory options) external view override returns(uint){
-
         string memory election_id = string(options);
+        if(claimed_rewards[election_id][receiver][reward_id] > 0 ) return 0; // already claimed
         uint voter_turnout = voter_registration.getTurnout(election_id);
+        uint reward = 0;
+
+
 
         
-        return 0;
+        return reward;
+    }
+
+    function claimReward(uint8 reward_id, bytes memory options) external override returns(uint){
+        uint reward = this.eligibleForReward(reward_id, msg.sender, options);
+        require(reward == 0, "No reward to claim.");
+
+        string memory election_id = string(options);
+        claimed_rewards[election_id][msg.sender][reward_id] = reward;
+
+
     }
     
     function fund(uint reward) external override returns(bool success){

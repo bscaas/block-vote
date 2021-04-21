@@ -137,6 +137,7 @@ contract LibertyToken is IRewardToken{
             }
         }
 
+        bearer.claimReward(reward_id, options);
         return true;
 
     }
