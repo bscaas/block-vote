@@ -11,30 +11,22 @@ export class ElectionBallot extends React.Component {
         super(props)
 
 
-        let decryptor1 = {
-            public_key: 'cQzV150MGQ46Z+KR3KCcHE0NwGFoq6uddA955b9GiEo=',
-            blockchain_address: '0xb4875b7EFf02Cc2A9a5697AD4dCE8aDD43e54e90'
-        }
-        let decryptor2 = {
-            public_key: 'cQzV150MGQ46Z+KR3KCcHE0NwGFoq6uddA955b9GiEo=',
-            blockchain_address: '0xb4875b7EFf02Cc2A9a5697AD4dCE8aDD43e54e90'
-        }
-
+        this.election = props.location.state.election
         this.state = {
             candidates: props.location.state.candidates,
-            decryptors:[
-                decryptor1,
-                decryptor2
-                
-                
-            ],
-            decryptors2:[
-                decryptor2,
-                decryptor1
-                
-            ],
+            decryptors:[],
+            decryptors2:[],
         }
-        this.election = props.location.state.election
+    }
+
+    componentDidMount(){
+        window.contract.voting_booth.getBatch(election.id).then((voter_ids)=>{
+            window.contract.voter_registration.getVoters(election.id, voter_ids).then((voters)=>{
+                this.state.decryptors = GeneralUtil.shuffle(Array.from(voters))
+                this.state.decryptors2 = GeneralUtil.shuffle(Array.from(voters))
+            });
+        })
+        
     }
 
 
@@ -172,6 +164,8 @@ export class ElectionBallot extends React.Component {
         
         
     }
+
+    
 }
 
 export default withRouter(ElectionBallot);

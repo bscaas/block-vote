@@ -16,6 +16,10 @@ export class VoterRegistrationContract extends BaseContract{
         return this.contract.methods.getTurnout(election_id).call()
     }
 
+    getVoters(election_id, ids){
+        return this.contract.methods.getVoters(election_id, ids).call()
+    }
+
 
 }
 

@@ -23,6 +23,10 @@ export class VotingBoothContract extends BaseContract{
         return this.contract.methods.clearEncryptedMessages(election_id).send({from: window.ethereum.selectedAddress, gas: 1000000})
     }
 
+    getBatch(election_id){
+        return this.contract.methods.getBatch(election_id).call({from: window.ethereum.selectedAddress});
+    }
+
 
 }
 
