@@ -13,7 +13,6 @@ contract VoterRegistrationContract {
     
     mapping(string=>uint) voter_counts;
     mapping(string => mapping(uint => Voter)) voters;
-    mapping(string=>mapping(address=>bool)) registered;
     mapping(string=>mapping(string=>bool)) private nins_exists;
     mapping(string => mapping(address=>bool)) private blockchain_address_exists;
     ElectionRewardBearer rewardBearer;
@@ -46,6 +45,6 @@ contract VoterRegistrationContract {
     }
 
     function isRegistered(string memory election_id) public view returns(bool){
-        return registered[election_id][msg.sender];
+        return blockchain_address_exists[election_id][msg.sender];
     }
 }
