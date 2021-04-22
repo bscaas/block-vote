@@ -35,14 +35,29 @@ const router_config = [
   {name: "Election Tally", path: "/election-tally", component: ElectionTally}
 ]
 
-
 /*
   APPLICATION
 
 */
-export default function App() {
-  return (
-    <Router>
+
+
+export default class App extends React.Component {
+
+  constructor(){
+    super()
+  }
+
+  componentDidMount(){
+
+    window.contract.liberty_token.balance().then((balance)=>{
+      this.balance = balance
+      this.setState({})
+    })
+  }
+
+  render(){
+    return(
+      <Router>
         <nav className="sticky top-0 z-40 flex flex-wrap items-center justify-between px-2 bg-blueGray-500 rounded border-2 border-green-200">
           <div className="w-full relative flex justify-between lg:w-auto px-4 lg:static lg:block lg:justify-start">
             <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white" href={process.env.PUBLIC_URL}>
@@ -69,7 +84,7 @@ export default function App() {
             </ul>
             <div className="text-center w-12">
               <img src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-              {async ()=> {return await this.contract.methods.liberty_token.balance()}} LBTY
+              {this.balance} LBTY
             </div>
           </div>
         </nav>
@@ -85,11 +100,10 @@ export default function App() {
                 </Route>)
             })}
 
-        </Switch>
-        
-    </Router>
-
-  );
+        </Switch> 
+      </Router>
+    )
+  }
 }
 
 export class AppUtil{
