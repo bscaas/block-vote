@@ -23,10 +23,20 @@ contract ElectionRewardBearer is IRewardBearer{
         string memory election_id = string(options);
         if(claimed_rewards[election_id][receiver][reward_id] > 0 ) return 0; // already claimed
         uint voter_turnout = voter_registration.getTurnout(election_id);
-        uint reward = 0;
+        uint reward = ((total_rewards/voter_turnout)/2); //TODO: More sophisticated rewarding, currently evenly distributed across reward items
 
+        uint sum_reward = 0;
 
+        if(reward_id == 0){ //registration reward
+            //ensure did register
+            if(voter_registration.isRegistered(election_id)){
+                sum_reward = reward; 
+            }
+        }
+        else if(reward_id == 1){ //vote reward
+            //ensure did vote
 
+        }
         
         return reward;
     }
