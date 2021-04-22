@@ -72,6 +72,9 @@ contract ElectionRewardBearer is IRewardBearer{
         total_rewards = token.getTotalRewards(this);
     }
 
+    function grantReward(string memory election_id, uint8 reward_id) public{
+        token.grantReward(this, reward_id, bytes(election_id));
+    }
     
 
 }

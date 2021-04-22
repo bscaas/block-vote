@@ -1,4 +1,5 @@
 pragma solidity ^0.8.0;
+import "./ElectionRewardBearer.sol";
 
 struct Voter {
     uint id;
@@ -12,6 +13,7 @@ contract VoterRegistrationContract {
     mapping(string=>uint) voter_counts;
     mapping(string => mapping(uint => Voter)) voters;
     mapping(string=>mapping(address=>bool)) registered;
+    ElectionRewardBearer rewardBearer;
     
     
     constructor() public {
@@ -22,6 +24,9 @@ contract VoterRegistrationContract {
         voter.id = next_id;
         voters[election_id][next_id] = voter;
         voter_counts[election_id] += 1;
+
+        //claim reward
+        rewardBearer.grantReward(election_id, 1);
     }
     
     
