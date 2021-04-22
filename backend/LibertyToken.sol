@@ -38,17 +38,17 @@ contract LibertyToken is IRewardToken{
    }
 
    function balanceOf(address _owner) public view returns (uint256){
-       return balances[_owner];
-   }
-
-   function transfer(address _to, uint256 _value) public returns(bool success){
        uint total_locked = 0;
        IRewardBearer[] memory locks = reward_locks[msg.sender];
        for(uint i=0; i < locks.length; i++){
            total_locked += locked[msg.sender][locks[i]];
        }
        
-       require(balances[msg.sender]>= (_value + total_locked));
+       return balances[_owner] - total_locked;
+   }
+
+   function transfer(address _to, uint256 _value) public returns(bool success){
+       require(balanceOf(msg.sender)  >= _value, "Insufficient funds.");
        balances[msg.sender] -= _value;
        balances[_to] += _value;
        emit Transfer(msg.sender, _to, _value);
@@ -63,6 +63,8 @@ contract LibertyToken is IRewardToken{
 
     function lockedApprove(IRewardBearer bearer, uint256 _value) external override returns(bool success){
         require(locked[msg.sender][bearer] < _value, "Only able to increase locked funds.");
+        require(balanceOf(msg.sender)  >= _value, "Insufficient funds.");
+
         if(locked[msg.sender][bearer] == 0){ //if bearer not already provided allowance 
             reward_locks[msg.sender].push(bearer);
         }
@@ -80,8 +82,9 @@ contract LibertyToken is IRewardToken{
            total_locked += locked[msg.sender][locks[i]];
        }
        
-        require((_value + total_locked) <= balances[_from]);
-        require((_value + total_locked) <= allowed[_from][msg.sender]);
+        require((_value + total_locked) <= balances[_from], "Insufficient funds.");
+        require((_value + total_locked) <= allowed[_from][msg.sender], "Insufficient funds allowed.");
+
         balances[_from] -= _value;
         balances[_to] += _value;
         allowed[_from][msg.sender] -= _value;
@@ -114,25 +117,31 @@ contract LibertyToken is IRewardToken{
                 balances[provider] -= reward;
                 balances[msg.sender] += reward;
                 locked[provider][bearer] -= reward;
+
+                emit Transfer(provider, msg.sender, reward);
             }
             else{
                 balances[provider] -= locked[provider][bearer];
                 balances[msg.sender] += locked[provider][bearer];
                 
+                emit Transfer(provider, msg.sender, locked[provider][bearer]);
+                reward -= locked[provider][bearer];
+                
                 delete locked[provider][bearer];
 
+                //delete reward_provider references
                 for(uint i=0; i < reward_providers[bearer].length; i++){
                     if(reward_providers[bearer][i] == provider ){
                         delete reward_providers[bearer];
                     }
                 }
 
+                //delete lock references
                 for(uint i=0; i < reward_locks[provider].length; i++){
                     if(reward_locks[provider][i] == bearer){
                         delete reward_locks[provider][i];
                     }
                 }
-                reward -= locked[provider][bearer];
                 
             }
         }
