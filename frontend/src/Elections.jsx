@@ -86,7 +86,12 @@ export  class Elections extends React.Component{
     fund = (election, e)=>{
         e.stopPropagation();
 
-        AppUtil.info("Coming soon!")
+        AppUtil.startLoading()
+
+        window.contract.reward_bearer.fund(election.id, 50000000).then(()=>{
+            AppUtil.info("Thank you for funding the election")
+            AppUtil.stopLoading()
+        })
 
     }
 
