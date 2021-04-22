@@ -15,7 +15,7 @@ contract VoterRegistrationContract {
     mapping(string => mapping(uint => Voter)) voters;
     mapping(string=>mapping(string=>bool)) private nins_exists;
     mapping(string => mapping(address=>bool)) private blockchain_address_exists;
-    ElectionRewardBearer rewardBearer;
+    ElectionRewardBearer reward_bearer;
     
     
     constructor() public {
@@ -31,12 +31,12 @@ contract VoterRegistrationContract {
         require(!nins_exists[election_id][voter_nin], "Voter National Identity Number already exists ");
         nins_exists[election_id][voter_nin] = true;
         uint next_id = voter_counts[election_id];
-        voter.id = next_id;
+        voter.id = next_id +=1;
         voters[election_id][next_id] = voter;
         voter_counts[election_id] += 1;
 
-        //claim reward
-        rewardBearer.grantReward(election_id, 1);
+        //grant reward
+        reward_bearer.grantReward(election_id, 1);
     }
     
     

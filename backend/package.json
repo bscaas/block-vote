@@ -1,0 +1,8 @@
+{
+    "name": "Block Vote",
+    "Version": "0.0.1",
+    "dependencies": {
+        "@truffle/hdwallet-provider": "^1.2.6",
+        "web3": "^1.3.5"
+    }
+}
