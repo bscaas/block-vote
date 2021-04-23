@@ -2,7 +2,7 @@ import BaseContract from './BaseContract'
 export default class ElectionTallyContract extends BaseContract{
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.election_tally.abi_interface, this.config.election_tally.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.election_tally.abi_interface, this.config.contract.election_tally.address);
     }
 
     submitVoteFragments(election_id, vote_fragments){

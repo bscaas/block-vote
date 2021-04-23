@@ -5,7 +5,7 @@ export default class ElectionCandidateContract extends BaseContract{
 
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.election_candidate.abi_interface, this.config.election_candidate.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.election_candidate.abi_interface, this.config.contract.election_candidate.address);
     }
 
     createCandidate(election_id, candidate){

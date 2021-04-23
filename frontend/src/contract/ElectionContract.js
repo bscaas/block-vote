@@ -2,7 +2,7 @@ import BaseContract from './BaseContract'
 export default class ElectionContract extends BaseContract{
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.election.abi_interface, this.config.election.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.election.abi_interface, this.config.contract.election.address);
     }
 
     create(election){

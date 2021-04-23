@@ -4,7 +4,7 @@ export class VotingBoothContract extends BaseContract{
 
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.voting_booth.abi_interface, this.config.voting_booth.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.voting_booth.abi_interface, this.config.contract.voting_booth.address);
     }
 
 

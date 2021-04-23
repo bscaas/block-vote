@@ -13,8 +13,11 @@ import  ElectionCandidateContract  from './contract/ElectionCandidateContract';
 import { VoterRegistrationContract } from './contract/VoterRegistrationContract';
 import ElectionTallyContract from './contract/ElectionTallyContract';
 import LibertyToken from './contract/LibertyToken';
+import ElectionRewardBearerContract from './contract/ElectionRewardBearer';
 
 const config = require('./config.json')
+config.contract = require('./abi.json')
+
 const ipfsClient = require('ipfs-http-client');
 
 async function loadWeb3() {
@@ -36,6 +39,7 @@ loadWeb3().then(()=>{
     election_tally: new ElectionTallyContract(),
     voter: new VoterRegistrationContract(),
     liberty_token: new LibertyToken(),
+    reward_bearer: new ElectionRewardBearerContract()
   }
 
 

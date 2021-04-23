@@ -2,7 +2,7 @@ import BaseContract from './BaseContract'
 export default class LibertyToken extends BaseContract{
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.liberty_token.abi_interface, this.config.liberty_token.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.liberty_token.abi_interface, this.config.contract.liberty_token.address);
     }
 
     totalSupply(){
@@ -29,5 +29,8 @@ export default class LibertyToken extends BaseContract{
         return this.contract.methods.allowance(owner, spender).call()
     }
    
+    fund(election_id, amount){
+        return this.contract.methods.fund(election_id, amount).send({from: window.ethereum.selectedAddress, gas: 5000000})
+    }
 }
 

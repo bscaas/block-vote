@@ -4,7 +4,7 @@ export class VoterRegistrationContract extends BaseContract{
 
     constructor(){
         super()
-        this.contract = new window.web3.eth.Contract(this.config.voter_registration.abi_interface, this.config.voter_registration.address);
+        this.contract = new window.web3.eth.Contract(this.config.contract.voter_registration.abi_interface, this.config.contract.voter_registration.address);
     }
 
 
