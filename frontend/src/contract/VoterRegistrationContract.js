@@ -20,6 +20,9 @@ export class VoterRegistrationContract extends BaseContract{
         return this.contract.methods.getVoters(election_id, ids).call()
     }
 
+    setRewardBearer(address){
+        return this.contract.methods.setRewardBearer(address).send({from: window.ethereum.selectedAddress, gas: 5000000});
+    }
 
 }
 

@@ -19,7 +19,7 @@ export  class Elections extends React.Component{
 
             for(let e of this.elections){
                 promises.push(
-                    window.contract.reward_bearer.balance(e.id).then((amount)=>{
+                    window.contract.reward_bearer.totalFunds(e.id).then((amount)=>{
                         e.funding = amount
                     }))
 

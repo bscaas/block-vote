@@ -77,9 +77,8 @@ export class ElectionForm extends React.Component{
         this.election.id = GeneralUtil.uuidv4()
         this.election.image_cid = this.ipfs_upload.current.cid
         window.contract.election.create(this.election).then(()=>{
-            alert(this.election.name + ' has been created with id '+ this.election.id)
             this.setState({}) //Call setstate to re-render UI
-            AppUtil.info('Successfully created election.')
+            AppUtil.info(this.election.name + ' has been created with id '+ this.election.id)
             AppUtil.stopLoading()
         }, ()=>{
             AppUtil.error('Failed to create election.')

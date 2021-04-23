@@ -38,12 +38,11 @@ export class VoterForm extends React.Component{
         this.voter.public_key = WalletUtil.getPublicKey().then((public_key)=>{
             this.voter.public_key = public_key
             window.contract.voter.register(this.election_id, this.voter).then(()=>{
-                alert(this.voter.nin + ' has been registered with id '+ this.voter.id)
                 this.setState({}) //Call setstate to re-render UI
-                AppUtil.info("Successfully registered to vote.")
+                AppUtil.info(this.voter.nin + ' has been registered with id '+ this.voter.id)
                 AppUtil.stopLoading()
             }, ()=>{
-                AppUtil.info("Failed to register to vote.")
+                AppUtil.error("Failed to register to vote.")
                 AppUtil.stopLoading()
             })
         })

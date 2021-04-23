@@ -14,6 +14,19 @@ export default class ElectionRewardBearerContract extends BaseContract{
     fundsRewarded(election_id){
         return this.contract.methods.fundsRewarded(election_id).call();
     }
+
+    totalFunds(election_id){
+        return this.contract.methods.totalFunds(election_id).call();
+    }
+
+    setVoterRegistrationContract(address){
+        return this.contract.methods.setVoterRegistrationContract(address).send({from: window.ethereum.selectedAddress, gas: 5000000});
+
+    }
+
+    eligibleForReward(reward_id, election_id){
+        return this.contract.methods.eligibleForReward(reward_id, window.ethereum.selectedAddress, Buffer.from(election_id)).call();
+    }
     
 
 
