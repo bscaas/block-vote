@@ -10,7 +10,7 @@ export default class LibertyToken extends BaseContract{
     }
 
     balance(){
-        return this.contract.methods.balanceOf(window.ethereum.selectedAddress).call({from: window.ethereum.selectedAddress, gas: 5000000});
+        return this.contract.methods.balanceOf(window.ethereum.selectedAddress).call();
     }
 
     transfer(to, value){
@@ -30,7 +30,7 @@ export default class LibertyToken extends BaseContract{
     }
    
     fund(election_id, amount){
-        return this.contract.methods.fund(election_id, amount).send({from: window.ethereum.selectedAddress, gas: 5000000})
+        return this.contract.methods.fund(window.contract.reward_bearer.contract.options.address, amount, Buffer.from(election_id)).send({from: window.ethereum.selectedAddress, gas: 5000000})
     }
 }
 

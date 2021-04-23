@@ -84,7 +84,7 @@ export default class App extends React.Component {
             </ul>
             <div className="text-center w-12">
               <img src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-              {this.balance} LBTY
+              {this.balance/10000} LBTY
             </div>
           </div>
         </nav>

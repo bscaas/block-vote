@@ -7,5 +7,14 @@ export default class ElectionRewardBearerContract extends BaseContract{
 
     }
 
+    balance(election_id){
+        return this.contract.methods.balanceOf(election_id).call();
+    }
+    
+    fundsRewarded(election_id){
+        return this.contract.methods.fundsRewarded(election_id).call();
+    }
+    
+
 
 }

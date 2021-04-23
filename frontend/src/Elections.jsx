@@ -13,13 +13,32 @@ export  class Elections extends React.Component{
         window.contract.election.list().then((elections)=>{
             this.elections = elections.map((a)=>new Election(...a))
             this.setState({}) //Call setstate to re-render UI
+
+
+            let promises = []
+
             for(let e of this.elections){
+                promises.push(
+                    window.contract.reward_bearer.balance(e.id).then((amount)=>{
+                        e.funding = amount
+                    }))
+
+                promises.push(
+                        window.contract.reward_bearer.fundsRewarded(e.id).then((amount)=>{
+                    e.funds_rewarded = amount
+                }))
+
+
+                promises.push(
                 window.contract.voter.getTurnout(e.id).then((c)=>{
                     e.voter_count = c
-                    this.setState({}) //Call setstate to re-render UI
 
-                })
+                }))
             }
+
+            Promise.all(promises).then(()=>{ //only process after all sub requests
+                this.setState({}) //Call setstate to re-render UI
+            })
 
             AppUtil.stopLoading()
         })
@@ -38,9 +57,9 @@ export  class Elections extends React.Component{
                                 <div className="mb-8">
                                     <p className="text-sm text-gray-600 flex items-center">
                                     <img className="w-6" src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-                                        122 522 901 LBTY FUNDED
+                                        {election.funding/10000} LBTY FUNDED
                                     <img className="ml-4 w-6" src={`${process.env.PUBLIC_URL}/assets/images/liberty.png`} />
-                                        122 522 901 LBTY REWARDED
+                                        {election.funds_rewarded/10000} LBTY REWARDED
                                     </p>
                                     
                                 <div className="text-gray-900 font-bold text-xl mb-2">{election.name}</div>
@@ -88,7 +107,7 @@ export  class Elections extends React.Component{
 
         AppUtil.startLoading()
 
-        window.contract.reward_bearer.fund(election.id, 50000000).then(()=>{
+        window.contract.liberty_token.fund(election.id, 50000000).then(()=>{
             AppUtil.info("Thank you for funding the election")
             AppUtil.stopLoading()
         })

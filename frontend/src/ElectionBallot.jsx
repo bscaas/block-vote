@@ -20,8 +20,8 @@ export class ElectionBallot extends React.Component {
     }
 
     componentDidMount(){
-        window.contract.voting_booth.getBatch(election.id).then((voter_ids)=>{
-            window.contract.voter_registration.getVoters(election.id, voter_ids).then((voters)=>{
+        window.contract.voting_booth.getBatch(this.election.id).then((voter_ids)=>{
+            window.contract.voter_registration.getVoters(this.election.id, voter_ids).then((voters)=>{
                 this.state.decryptors = GeneralUtil.shuffle(Array.from(voters))
                 this.state.decryptors2 = GeneralUtil.shuffle(Array.from(voters))
             });
