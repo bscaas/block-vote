@@ -1,5 +1,5 @@
 pragma solidity ^0.8.0;
-import "./ElectionRewardBearer.sol";
+import "./IRewardBearer.sol";
 import "./RegistrationUtility.sol";
 
 struct Voter {
@@ -15,7 +15,7 @@ contract VoterRegistrationContract {
     mapping(string => mapping(uint => Voter)) voters;
     mapping(string=>mapping(string=>bool)) private nins_exists;
     mapping(string => mapping(address=>bool)) private blockchain_address_exists;
-    ElectionRewardBearer reward_bearer;
+    IRewardBearer reward_bearer;
     
     
     constructor() public {
@@ -27,24 +27,26 @@ contract VoterRegistrationContract {
         voter.blockchain_address = msg.sender;
         string memory voter_nin = voter.nin;
         require (RegistrationUtility.luhnCheck(voter_nin), "Invalid Nation Identity Number");
-        bytes memory bytesVoter_nin = bytes(voter.nin);
-        require(!nins_exists[election_id][voter_nin], "Voter National Identity Number already exists ");
+        require(!nins_exists[election_id][voter.nin], "Voter National Identity Number already exists ");
         nins_exists[election_id][voter_nin] = true;
-        uint next_id = voter_counts[election_id];
-        voter.id = next_id +=1;
+        uint next_id = voter_counts[election_id] + 1;
+        voter.id = next_id;
         voters[election_id][next_id] = voter;
         voter_counts[election_id] += 1;
 
         //claim reward
-        reward_bearer.claimReward(1, msg.sender, bytes(election_id));
+        reward_bearer.claimReward(0, msg.sender, bytes(election_id));
     }
     
-    
+    function setRewardBearer(IRewardBearer bearer) public {
+        reward_bearer = bearer;
+    }
+
     function getTurnout(string memory election_id) public view returns(uint) {
         return voter_counts[election_id];
     }
 
-    function isRegistered(string memory election_id) public view returns(bool){
-        return blockchain_address_exists[election_id][msg.sender];
+    function isRegistered(string memory election_id, address addr) public view returns(bool){
+        return blockchain_address_exists[election_id][addr];
     }
 }
