@@ -19,7 +19,7 @@ Prototype: [ Figma Prototype](https://www.figma.com/proto/Q3mWl2OyrI15ErtsqLwyAH
 ## Get started with demo sandbox on BSC Test Net
 You can interact with the election and candidate cards by clicking on the card.
 
-Progressive Web DApp(PWD): [https://tjad.github.io/bscaas](https://tjad.github.io/bscaas)
+Progressive Web DApp(PWD): [https://bscaas.github.io/block-vote](https://bscaas.github.io/block-vote)
 
 Connect with MetaMask Brave: [Brave Store](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
 
