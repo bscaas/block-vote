@@ -1,12 +1,10 @@
 pragma solidity ^0.8.0;
 // Import contracts for both Dapp and DAI token.
-import "./IRewardBearer.sol";
-import "./IRewardToken.sol";
 import "./VoterRegistrationContract.sol";
+import "./IRewardToken.sol";
+import "./IRewardBearer.sol";
 
 contract ElectionRewardBearer is IRewardBearer{
-
-    uint total_rewards = 0;
 
     IRewardToken token;
     VoterRegistrationContract voter_registration;
@@ -14,16 +12,17 @@ contract ElectionRewardBearer is IRewardBearer{
     mapping(string => mapping(address => mapping(uint => uint))) claimed_rewards;
 
     mapping(string=>uint) election_funds;
+    mapping(string=>uint) funds_rewarded;
 
     constructor(IRewardToken _token){
         token = _token;
     }
 
-    function eligibleForReward(uint8 reward_id, address receiver, bytes memory options) external view override returns(uint){
+    function eligibleForReward(uint8 reward_id, address receiver, bytes memory options) external view returns(uint){
         string memory election_id = string(options);
         if(claimed_rewards[election_id][receiver][reward_id] > 0 ) return 0; // already claimed
         uint voter_turnout = voter_registration.getTurnout(election_id);
-        uint reward = ((total_rewards/voter_turnout)/2); //TODO: More sophisticated rewarding, currently evenly distributed across reward items
+        uint reward = ((election_funds[election_id]/voter_turnout)/2); //TODO: More sophisticated rewarding, currently evenly distributed across reward items
 
         uint sum_reward = 0;
 
@@ -41,40 +40,38 @@ contract ElectionRewardBearer is IRewardBearer{
         return reward;
     }
 
-    function claimReward(uint8 reward_id, bytes memory options) external override returns(uint){
-        uint reward = this.eligibleForReward(reward_id, msg.sender, options);
-        require(reward == 0, "No reward to claim.");
-
+    function fundProvided(uint amount, bytes memory options) external override returns(bool){
         string memory election_id = string(options);
-        claimed_rewards[election_id][msg.sender][reward_id] = reward;
 
-
-    }
-    
-    function fund(uint reward) external override returns(bool success){
-        token.lockedApprove(this, reward); 
+        election_funds[election_id] += amount;
         return true;
     }
 
-    function fundElection(string memory election_id, uint reward) public returns(bool success){        
-
-        bool success = this.fund(reward);
-        if(success){
-            election_funds[election_id] += reward;
-        }
-
-        return success;
+    function claimReward(uint8 reward_id, address receiver, bytes memory options) override external returns (bool){
+        string memory election_id = string(options);
+        uint reward = this.eligibleForReward(reward_id, receiver, options);
         
-    }
+        require(reward == 0, "No reward to claim.");
+        if(reward > 0){
+            bool success = token.transfer(receiver, reward);
 
-
-    function setTotalRewards() public{
-        total_rewards = token.getTotalRewards(this);
-    }
-
-    function grantReward(string memory election_id, uint8 reward_id) public{
-        token.grantReward(this, reward_id, bytes(election_id));
+            if(success){
+                claimed_rewards[election_id][receiver][reward_id] = reward;
+                funds_rewarded[election_id] += reward;
+                election_funds[election_id] -= reward;
+                return true;
+            }
+        }
+        return false;
     }
     
+
+    function balanceOf(string memory election_id) public view returns(uint){
+        return election_funds[election_id];
+    }
+
+    function fundsRewarded(string memory election_id) public view returns(uint){
+        return funds_rewarded[election_id]; 
+    }
 
 }

@@ -1,7 +1,7 @@
 pragma solidity >= 0.8.0;
 
-import "./IRewardBearer.sol";
 import "./IRewardToken.sol";
+import "./IRewardBearer.sol";
 
 contract LibertyToken is IRewardToken{
     string public name = "Liberty";
@@ -25,10 +25,6 @@ contract LibertyToken is IRewardToken{
     mapping(address => uint256)public balances;
     mapping(address=>mapping(address=>uint256))public allowed;
 
-    mapping(address=>mapping(IRewardBearer => uint256))public locked;
-    mapping(address=>IRewardBearer[]) reward_locks;
-    mapping(IRewardBearer=>address[]) reward_providers;
-
     constructor() public {
         balances[msg.sender] = totalSupply;
     }  
@@ -38,16 +34,10 @@ contract LibertyToken is IRewardToken{
    }
 
    function balanceOf(address _owner) public view returns (uint256){
-       uint total_locked = 0;
-       IRewardBearer[] memory locks = reward_locks[msg.sender];
-       for(uint i=0; i < locks.length; i++){
-           total_locked += locked[msg.sender][locks[i]];
-       }
-       
-       return balances[_owner] - total_locked;
+       return balances[_owner];
    }
 
-   function transfer(address _to, uint256 _value) public returns(bool success){
+   function transfer(address _to, uint256 _value) public override returns(bool success){
        require(balanceOf(msg.sender)  >= _value, "Insufficient funds.");
        balances[msg.sender] -= _value;
        balances[_to] += _value;
@@ -61,29 +51,10 @@ contract LibertyToken is IRewardToken{
        return true;
     }
 
-    function lockedApprove(IRewardBearer bearer, uint256 _value) external override returns(bool success){
-        require(locked[msg.sender][bearer] < _value, "Only able to increase locked funds.");
-        require(balanceOf(msg.sender)  >= _value, "Insufficient funds.");
-
-        if(locked[msg.sender][bearer] == 0){ //if bearer not already provided allowance 
-            reward_locks[msg.sender].push(bearer);
-        }
-
-        locked[msg.sender][bearer] = _value;
-
-        return true;
-    }
-   
 
     function transferFrom(address _from, address _to, uint256 _value) public returns(bool success){
-       uint total_locked = 0;
-       IRewardBearer[] memory locks = reward_locks[msg.sender];
-       for(uint i=0; i < locks.length; i++){
-           total_locked += locked[msg.sender][locks[i]];
-       }
-       
-        require((_value + total_locked) <= balances[_from], "Insufficient funds.");
-        require((_value + total_locked) <= allowed[_from][msg.sender], "Insufficient funds allowed.");
+        require(_value <= balances[_from], "Insufficient funds.");
+        require(_value <= allowed[_from][msg.sender], "Insufficient funds allowed.");
 
         balances[_from] -= _value;
         balances[_to] += _value;
@@ -96,72 +67,13 @@ contract LibertyToken is IRewardToken{
         return allowed[_owner][_spender];
     }
 
-    function grantReward(IRewardBearer bearer, uint8 reward_id, bytes memory options) external override returns(bool){
-        require(reward_providers[bearer].length > 0, "No reward providers for this bearer");
+    function fund(IRewardBearer bearer, uint amount, bytes memory options) external override returns(bool){
+        bool success = transfer(address(bearer), amount);
 
-        uint reward = bearer.eligibleForReward(reward_id, msg.sender, options);
-        require(reward > 0, "You are not eligible for rewards from this bearer or the reward was zero.");
-       
-       uint total_locked = 0;
-       IRewardBearer[] memory locks = reward_locks[msg.sender];
-       for(uint i=0; i < locks.length; i++){
-           total_locked += locked[msg.sender][locks[i]];
-       }
-
-        require(total_locked > reward, "Insufficient reward provision. Wait for more providers to claim this reward.");
-
-        while(reward > 0){
-            address provider = reward_providers[bearer][0];
-
-            if(locked[provider][bearer] > reward){
-                balances[provider] -= reward;
-                balances[msg.sender] += reward;
-                locked[provider][bearer] -= reward;
-
-                emit Transfer(provider, msg.sender, reward);
-            }
-            else{
-                balances[provider] -= locked[provider][bearer];
-                balances[msg.sender] += locked[provider][bearer];
-                
-                emit Transfer(provider, msg.sender, locked[provider][bearer]);
-                reward -= locked[provider][bearer];
-                
-                delete locked[provider][bearer];
-
-                //delete reward_provider references
-                for(uint i=0; i < reward_providers[bearer].length; i++){
-                    if(reward_providers[bearer][i] == provider ){
-                        delete reward_providers[bearer];
-                    }
-                }
-
-                //delete lock references
-                for(uint i=0; i < reward_locks[provider].length; i++){
-                    if(reward_locks[provider][i] == bearer){
-                        delete reward_locks[provider][i];
-                    }
-                }
-                
-            }
+        if(success){
+            bearer.fundProvided(amount, options);
         }
-
-        bearer.claimReward(reward_id, options);
-        return true;
-
+        return success;
     }
-
-    function getTotalRewards(IRewardBearer bearer) external override returns(uint){
-
-        uint total_locked;
-        address[] memory providers = reward_providers[bearer];
-
-        for(uint i=0; i < providers.length; i++){
-            total_locked += locked[providers[i]][bearer];
-        }
-
-        return total_locked;
-    }
-
 
 }

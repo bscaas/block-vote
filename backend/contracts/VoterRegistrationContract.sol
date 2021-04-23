@@ -35,8 +35,8 @@ contract VoterRegistrationContract {
         voters[election_id][next_id] = voter;
         voter_counts[election_id] += 1;
 
-        //grant reward
-        reward_bearer.grantReward(election_id, 1);
+        //claim reward
+        reward_bearer.claimReward(1, msg.sender, bytes(election_id));
     }
     
     
